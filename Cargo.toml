@@ -1,0 +1,15 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+authors = ["Dominik Nakamura <dnaka91@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.25"
+
+[dev-dependencies]
+criterion = "0.3.0"
+
+[[bench]]
+name = "year2019"
+harness = false
