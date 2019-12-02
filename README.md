@@ -1,5 +1,10 @@
 # Advent of Code
 
+[![Build Status][build-img]][build-url]
+
+[build-img]: https://github.com/dnaka91/advent-of-code-rs/workflows/CI/badge.svg?branch=master
+[build-url]: https://github.com/dnaka91/advent-of-code-rs/actions?query=workflow%3ACI
+
 The [Advent of Code] solved in 🦀 Rust.
 
 [Advent of Code]: https://adventofcode.com
