@@ -83,7 +83,7 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
 }
 
 #[inline]
-fn fuel_for_mass(mass: i64) -> i64 {
+const fn fuel_for_mass(mass: i64) -> i64 {
     mass / 3 - 2
 }
 

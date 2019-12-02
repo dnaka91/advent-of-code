@@ -165,7 +165,7 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
 
             process(&mut cmds)?;
 
-            if cmds[0] == 19690720 {
+            if cmds[0] == 19_690_720 {
                 return Ok(100 * noun + verb);
             }
         }
