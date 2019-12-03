@@ -5,8 +5,8 @@
 //! to Earth in time to save Christmas, he needs you to bring him measurements from **fifty stars**.
 //!
 //! Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent
-//! calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants
-//! **one star**. Good luck!
+//! calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants **one
+//! star**. Good luck!
 //!
 //! The Elves quickly load you into a spacecraft and prepare to launch.
 //!

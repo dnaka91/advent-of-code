@@ -222,4 +222,7 @@ mod tests {
         process(&mut cmds).unwrap();
         assert_eq!(vec![30, 1, 1, 4, 2, 5, 6, 0, 99], cmds);
     }
+
+    #[test]
+    fn part_two() {}
 }
