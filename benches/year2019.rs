@@ -27,5 +27,14 @@ fn y2019_d03(c: &mut Criterion) {
     });
 }
 
-criterion_group!(benches, y2019_d01, y2019_d02, y2019_d03);
+fn y2019_d04(c: &mut Criterion) {
+    c.bench_function("Y2019 D04 P1", |b| {
+        b.iter(|| aoc::y2019::d04::solve_part_one(black_box(aoc::y2019::d04::INPUT)))
+    });
+    c.bench_function("Y2019 D04 P2", |b| {
+        b.iter(|| aoc::y2019::d04::solve_part_two(black_box(aoc::y2019::d04::INPUT)))
+    });
+}
+
+criterion_group!(benches, y2019_d01, y2019_d02, y2019_d03, y2019_d03);
 criterion_main!(benches);

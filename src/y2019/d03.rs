@@ -107,8 +107,8 @@ use std::collections::HashSet;
 use std::hash::Hash;
 use std::str::FromStr;
 
-use anyhow::{bail, ensure};
 use anyhow::Result;
+use anyhow::{bail, ensure};
 
 pub const INPUT: &str = include_str!("d03.txt");
 
@@ -162,7 +162,7 @@ impl Point {
             Direction::Up => self.1 += 1,
             Direction::Right => self.0 += 1,
             Direction::Down => self.1 -= 1,
-            Direction::Left => self.0 -= 1
+            Direction::Left => self.0 -= 1,
         }
     }
 }
@@ -182,10 +182,15 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
     let wire_a: HashSet<_> = points_a.iter().collect();
     let wire_b: HashSet<_> = points_b.iter().collect();
 
-    Ok(wire_a.intersection(&wire_b).map(|p| {
-        points_a.iter().position(|o| o == *p).unwrap() +
-            points_b.iter().position(|o| o == *p).unwrap() + 2
-    }).min().unwrap() as i64)
+    Ok(wire_a
+        .intersection(&wire_b)
+        .map(|p| {
+            points_a.iter().position(|o| o == *p).unwrap()
+                + points_b.iter().position(|o| o == *p).unwrap()
+                + 2
+        })
+        .min()
+        .unwrap() as i64)
 }
 
 fn to_points(input: &str) -> Vec<Point> {
