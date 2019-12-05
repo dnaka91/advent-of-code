@@ -22,3 +22,7 @@ harness = false
 [[bench]]
 name = "year2018"
 harness = false
+
+[[bench]]
+name = "year2017"
+harness = false
