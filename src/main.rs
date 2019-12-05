@@ -20,5 +20,9 @@ fn main() -> Result<()> {
     println!("    Part 1: {}", aoc::y2019::d04::solve_part_one(aoc::y2019::d04::INPUT)?);
     println!("    Part 2: {}", aoc::y2019::d04::solve_part_two(aoc::y2019::d04::INPUT)?);
 
+    println!("  Day 05");
+    println!("    Part 1: {}", aoc::y2019::d05::solve_part_one(aoc::y2019::d05::INPUT)?);
+    println!("    Part 2: {}", aoc::y2019::d05::solve_part_two(aoc::y2019::d05::INPUT)?);
+
     Ok(())
 }
