@@ -92,15 +92,15 @@ mod tests {
 
     #[test]
     fn part_one() {
-        assert!(verify_password(111111, false));
-        assert!(!verify_password(223450, false));
-        assert!(!verify_password(123789, false));
+        assert!(verify_password(111_111, false));
+        assert!(!verify_password(223_450, false));
+        assert!(!verify_password(123_789, false));
     }
 
     #[test]
     fn part_two() {
-        assert!(verify_password(112233, true));
-        assert!(!verify_password(123444, true));
-        assert!(verify_password(111122, true));
+        assert!(verify_password(112_233, true));
+        assert!(!verify_password(123_444, true));
+        assert!(verify_password(111_122, true));
     }
 }

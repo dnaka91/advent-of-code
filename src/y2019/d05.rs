@@ -159,8 +159,8 @@
 
 use std::convert::{TryFrom, TryInto};
 
-use anyhow::Result;
 use anyhow::bail;
+use anyhow::Result;
 
 pub const INPUT: &str = include_str!("d05.txt");
 
