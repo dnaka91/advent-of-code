@@ -1,0 +1,7 @@
+[licenses]
+unlicensed = "deny"
+copyleft = "deny"
+allow-osi-fsf-free = "both"
+
+[bans]
+multiple-versions = "warn"
