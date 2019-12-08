@@ -136,55 +136,29 @@
 //! orbiting to the object `SAN` is orbiting? (Between the objects they are orbiting - **not**
 //! between `YOU` and `SAN`.)
 
-use std::cell::RefCell;
-use std::collections::HashMap;
-use std::rc::Rc;
-
-use anyhow::ensure;
 use anyhow::{Context, Result};
-
-#[derive(Debug, Eq, PartialEq)]
-struct Orbit {
-    parent: Option<Rc<RefCell<Orbit>>>,
-    source: String,
-    orbits: Option<i64>,
-}
-
-impl Orbit {
-    fn from_str(source: &str) -> Orbit {
-        Self { parent: None, source: source.to_owned(), orbits: None }
-    }
-}
+use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d06.txt");
 
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    let entries = parse_input(input);
-    let map = build_map(entries)?;
+    let map = parse_input(input);
+    let mut counts = FnvHashMap::with_capacity_and_hasher(map.len(), Default::default());
 
     let mut total = 0;
-    for entry in map.values() {
+    for key in map.keys() {
         let mut count = 0;
-        let mut parent = Some(entry.clone());
-        while let Some(p) = parent {
-            // If we already counted before, we don't have to do it again.
-            if let Some(c) = p.borrow().orbits {
-                count += c;
+        let mut value = key;
+
+        while let Some(p) = map.get(value) {
+            if let Some(c) = counts.get(p) {
+                count += *c;
                 break;
             }
-            parent = match &p.borrow().parent {
-                Some(p) => {
-                    count += 1;
-                    Some(p.clone())
-                }
-                None => {
-                    ensure!(p.borrow().source == "COM", "wrong root");
-                    None
-                }
-            };
+            count += 1;
+            value = p;
         }
-        // Save count to root for shortcut
-        entry.borrow_mut().orbits = Some(count);
+        counts.insert(key, count + 1);
         total += count;
     }
 
@@ -192,58 +166,38 @@ pub fn solve_part_one(input: &str) -> Result<i64> {
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    let entries = parse_input(input);
-    let map = build_map(entries)?;
+    let map = parse_input(input);
 
-    let you = map.get("YOU").context("YOU not in the map")?.clone();
-    let san = map.get("SAN").context("SAN not in the map")?.clone();
+    let you = map.get("YOU").context("YOU not in the map")?;
+    let san = map.get("SAN").context("SAN not in the map")?;
 
     let mut you_count = 0;
-    let mut you_parent = you.borrow().parent.as_ref().unwrap().clone();
+    let mut you_parent = map.get(you).unwrap();
     loop {
         let mut san_count = 0;
-        let mut san_parent = Some(san.borrow().parent.as_ref().unwrap().clone());
+        let mut san_parent = Some(map.get(san).unwrap());
         while let Some(sp) = san_parent {
             if sp == you_parent {
-                return Ok(you_count + san_count);
+                return Ok(you_count + san_count + 2);
             }
             san_count += 1;
-            san_parent = sp.borrow().parent.as_ref().cloned();
+            san_parent = map.get(sp);
         }
 
         you_count += 1;
-        you_parent = you_parent.clone().borrow().parent.as_ref().unwrap().clone();
+        you_parent = map.get(you_parent).unwrap();
     }
 }
 
-fn parse_input(input: &str) -> Vec<(&str, &str)> {
+fn parse_input(input: &str) -> FnvHashMap<&str, &str> {
     input
         .lines()
         .map(|l| {
             let i = l.find(')').unwrap();
-            (&l[..i], &l[i + 1..])
+            // orbiter as key, object as value, as we always want to walk bottom up.
+            (&l[i + 1..], &l[..i])
         })
         .collect()
-}
-
-fn build_map<'a>(entries: Vec<(&'a str, &'a str)>) -> Result<HashMap<&'a str, Rc<RefCell<Orbit>>>> {
-    let mut map: HashMap<&str, Rc<RefCell<Orbit>>> = HashMap::new();
-    for (source, orbiter) in entries {
-        let parent = map
-            .entry(source)
-            .or_insert_with(|| Rc::new(RefCell::new(Orbit::from_str(source))))
-            .clone();
-        let orbit = map
-            .entry(orbiter)
-            .or_insert_with(|| Rc::new(RefCell::new(Orbit::from_str(orbiter))))
-            .clone();
-
-        ensure!(orbit.borrow().parent.is_none(), "parent already set for {}){}", source, orbiter);
-
-        orbit.borrow_mut().parent = Some(parent.clone());
-    }
-
-    Ok(map)
 }
 
 #[cfg(test)]
