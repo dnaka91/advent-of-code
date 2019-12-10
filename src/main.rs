@@ -23,6 +23,7 @@ fn run_y2019() -> Result<()> {
     run(6, d06::solve_part_one, d06::solve_part_two, d06::INPUT)?;
     run(7, d07::solve_part_one, d07::solve_part_two, d07::INPUT)?;
     run(8, d08::solve_part_one, d08::solve_part_two, d08::INPUT)?;
+    run(9, d09::solve_part_one, d09::solve_part_two, d09::INPUT)?;
 
     Ok(())
 }

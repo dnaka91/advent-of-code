@@ -72,7 +72,17 @@ fn y2019_d08(c: &mut Criterion) {
     });
 }
 
+fn y2019_d09(c: &mut Criterion) {
+    c.bench_function("Y2019 D09 P1", |b| {
+        b.iter(|| aoc::y2019::d09::solve_part_one(black_box(aoc::y2019::d09::INPUT)))
+    });
+    c.bench_function("Y2019 D09 P2", |b| {
+        b.iter(|| aoc::y2019::d09::solve_part_two(black_box(aoc::y2019::d09::INPUT)))
+    });
+}
+
 criterion_group!(
-    benches, y2019_d01, y2019_d02, y2019_d03, y2019_d04, y2019_d05, y2019_d06, y2019_d07, y2019_d08
+    benches, y2019_d01, y2019_d02, y2019_d03, y2019_d04, y2019_d05, y2019_d06, y2019_d07,
+    y2019_d08, y2019_d09
 );
 criterion_main!(benches);
