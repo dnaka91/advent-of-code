@@ -54,6 +54,15 @@ fn y2019_d06(c: &mut Criterion) {
     });
 }
 
+fn y2019_d07(c: &mut Criterion) {
+    c.bench_function("Y2019 D07 P1", |b| {
+        b.iter(|| aoc::y2019::d07::solve_part_one(black_box(aoc::y2019::d07::INPUT)))
+    });
+    c.bench_function("Y2019 D07 P2", |b| {
+        b.iter(|| aoc::y2019::d07::solve_part_two(black_box(aoc::y2019::d07::INPUT)))
+    });
+}
+
 fn y2019_d08(c: &mut Criterion) {
     c.bench_function("Y2019 D08 P1", |b| {
         b.iter(|| aoc::y2019::d08::solve_part_one(black_box(aoc::y2019::d08::INPUT)))
@@ -64,6 +73,6 @@ fn y2019_d08(c: &mut Criterion) {
 }
 
 criterion_group!(
-    benches, y2019_d01, y2019_d02, y2019_d03, y2019_d04, y2019_d05, y2019_d06, y2019_d08
+    benches, y2019_d01, y2019_d02, y2019_d03, y2019_d04, y2019_d05, y2019_d06, y2019_d07, y2019_d08
 );
 criterion_main!(benches);
