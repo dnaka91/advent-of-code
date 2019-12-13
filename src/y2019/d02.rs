@@ -136,26 +136,25 @@
 //! **What is `100 * noun + verb`?** (For example, if `noun=12` and `verb=2`, the answer would be
 //! `1202`.)
 
-use anyhow::{anyhow, bail, Result};
+use anyhow::{anyhow, Result};
+
+use super::intcode::{self, Program};
 
 pub const INPUT: &str = include_str!("d02.txt");
 
-const CMD_ADD: i64 = 1;
-const CMD_MUL: i64 = 2;
-const CMD_EXIT: i64 = 99;
-
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    let mut cmds = input.split(',').map(|v| v.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>();
+    let mut cmds = intcode::parse_input(input)?;
     cmds[1] = 12;
     cmds[2] = 2;
 
-    process(&mut cmds)?;
+    let mut p = Program::new(cmds, &[]);
+    p.run(&[])?;
 
-    Ok(cmds[0])
+    Ok(p.cmds()[0])
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    let cmds = input.split(',').map(|v| v.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>();
+    let cmds = intcode::parse_input(input)?;
 
     for noun in 0..=99 {
         for verb in 0..=99 {
@@ -163,9 +162,10 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
             cmds[1] = noun;
             cmds[2] = verb;
 
-            process(&mut cmds)?;
+            let mut p = Program::new(cmds, &[]);
+            p.run(&[])?;
 
-            if cmds[0] == 19_690_720 {
+            if p.cmds()[0] == 19_690_720 {
                 return Ok(100 * noun + verb);
             }
         }
@@ -174,53 +174,29 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
     Err(anyhow!("Couldn't find noun and verb which produce output 19690720"))
 }
 
-fn process(cmds: &mut [i64]) -> Result<()> {
-    let mut i = 0;
-
-    while i < cmds.len() {
-        match cmds[i] {
-            CMD_ADD => {
-                let out = cmds[i + 3] as usize;
-                let x = cmds[i + 1] as usize;
-                let y = cmds[i + 2] as usize;
-                cmds[out] = cmds[x] + cmds[y];
-            }
-            CMD_MUL => {
-                let out = cmds[i + 3] as usize;
-                let x = cmds[i + 1] as usize;
-                let y = cmds[i + 2] as usize;
-                cmds[out] = cmds[x] * cmds[y];
-            }
-            CMD_EXIT => break,
-            _ => bail!("Unknown command {}", cmds[i]),
-        }
-        i += 4;
-    }
-
-    Ok(())
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
     fn part_one() {
-        let mut cmds = vec![1, 0, 0, 0, 99];
-        process(&mut cmds).unwrap();
+        let cmds = process(vec![1, 0, 0, 0, 99]).unwrap();
         assert_eq!(vec![2, 0, 0, 0, 99], cmds);
 
-        let mut cmds = vec![2, 3, 0, 3, 99];
-        process(&mut cmds).unwrap();
+        let cmds = process(vec![2, 3, 0, 3, 99]).unwrap();
         assert_eq!(vec![2, 3, 0, 6, 99], cmds);
 
-        let mut cmds = vec![2, 4, 4, 5, 99, 0];
-        process(&mut cmds).unwrap();
+        let cmds = process(vec![2, 4, 4, 5, 99, 0]).unwrap();
         assert_eq!(vec![2, 4, 4, 5, 99, 9801], cmds);
 
-        let mut cmds = vec![1, 1, 1, 4, 99, 5, 6, 0, 99];
-        process(&mut cmds).unwrap();
+        let cmds = process(vec![1, 1, 1, 4, 99, 5, 6, 0, 99]).unwrap();
         assert_eq!(vec![30, 1, 1, 4, 2, 5, 6, 0, 99], cmds);
+    }
+
+    fn process(cmds: Vec<i64>) -> Result<Vec<i64>> {
+        let mut p = Program::new(cmds, &[]);
+        p.run(&[])?;
+        Ok(p.cmds())
     }
 
     #[test]

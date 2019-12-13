@@ -145,236 +145,72 @@
 //! Try every combination of the new phase settings on the amplifier feedback loop. **What is the
 //! highest signal that can be sent to the thrusters?**
 
-use std::collections::VecDeque;
-use std::convert::{TryFrom, TryInto};
-use std::iter::FromIterator;
-
 use anyhow::Result;
-use anyhow::{bail, ensure};
 use itertools::Itertools;
+
+use super::intcode::{self, Program};
 
 pub const INPUT: &str = include_str!("d07.txt");
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-enum Opcode {
-    Add,
-    Mul,
-    Input,
-    Output,
-    JumpIfTrue,
-    JumpIfFalse,
-    LessThan,
-    Equals,
-    Exit,
-}
-
-impl TryFrom<i64> for Opcode {
-    type Error = anyhow::Error;
-
-    fn try_from(value: i64) -> Result<Self, Self::Error> {
-        Ok(match value {
-            1 => Self::Add,
-            2 => Self::Mul,
-            3 => Self::Input,
-            4 => Self::Output,
-            5 => Self::JumpIfTrue,
-            6 => Self::JumpIfFalse,
-            7 => Self::LessThan,
-            8 => Self::Equals,
-            99 => Self::Exit,
-            _ => bail!("Unkown opcode {}", value),
-        })
-    }
-}
-
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-enum Mode {
-    Position,
-    Immediate,
-}
-
-impl TryFrom<i64> for Mode {
-    type Error = anyhow::Error;
-
-    fn try_from(value: i64) -> Result<Self, Self::Error> {
-        Ok(match value {
-            0 => Self::Position,
-            1 => Self::Immediate,
-            _ => bail!("Unkown mode {}", value),
-        })
-    }
-}
-
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    let cmds = parse_input(input);
+    let cmds = intcode::parse_input(input)?;
     let mut max = 0;
 
     for phases in (0..5).permutations(5) {
         let mut input = 0;
         for phase in phases {
-            let (output, _) = process(
-                &mut cmds.clone(),
-                &mut VecDeque::from_iter([phase, input].iter().cloned()),
-                false,
-                0,
-            )?;
-            input = output;
+            input = Program::new(cmds.clone(), &[phase]).run(&[input])?;
         }
-        if input > max {
-            max = input;
-        }
+
+        max = std::cmp::max(max, input);
     }
 
     Ok(max)
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    let cmds = parse_input(input);
+    let cmds = intcode::parse_input(input)?;
     let mut max = 0;
 
     for phases in (5..10).permutations(5) {
-        let mut output = 0;
-        let mut cmd_vec = vec![vec![]; phases.len()];
-        let mut inputs = vec![VecDeque::new(); phases.len()];
-        let mut pos = vec![Some(0); phases.len()];
+        let mut input = 0;
+        let mut programs = vec![];
 
-        for i in 0..phases.len() {
-            cmd_vec[i] = cmds.clone();
-            inputs[i].push_back(phases[i]);
+        for phase in phases {
+            programs.push(Program::new(cmds.clone(), &[phase]));
         }
 
-        while pos[0].is_some() {
-            for i in 0..phases.len() {
-                inputs[i].push_back(output);
-                let (o, p) = process(&mut cmd_vec[i], &mut inputs[i], true, pos[i].unwrap())?;
-                output = o;
-                pos[i] = p;
+        while !programs[4].is_finished() {
+            for program in programs.iter_mut() {
+                input = program.run(&[input])?;
             }
+            max = std::cmp::max(max, input);
         }
-
-        max = std::cmp::max(max, inputs[0][0]);
     }
 
     Ok(max)
 }
 
-fn process(
-    cmds: &mut [i64],
-    params: &mut VecDeque<i64>,
-    feedback: bool,
-    i: usize,
-) -> Result<(i64, Option<usize>)> {
-    let mut i = i;
-    let mut output = 0;
-
-    while i < cmds.len() {
-        let (opcode, mode1, mode2) = parse_opcode(cmds[i])?;
-        match opcode {
-            Opcode::Add => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = x + y;
-                i += 4;
-            }
-            Opcode::Mul => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = x * y;
-                i += 4;
-            }
-            Opcode::Input => {
-                let out = cmds[i + 1] as usize;
-                cmds[out] = params.pop_front().unwrap();
-                i += 2
-            }
-            Opcode::Output => {
-                output = get_value(&cmds, i + 1, mode1)?;
-                i += 2;
-                if feedback {
-                    return Ok((output, Some(i)));
-                }
-            }
-            Opcode::JumpIfTrue => {
-                if get_value(&cmds, i + 1, mode1)? != 0 {
-                    i = get_value(&cmds, i + 2, mode2)? as usize;
-                } else {
-                    i += 3;
-                }
-            }
-            Opcode::JumpIfFalse => {
-                if get_value(&cmds, i + 1, mode1)? == 0 {
-                    i = get_value(&cmds, i + 2, mode2)? as usize;
-                } else {
-                    i += 3;
-                }
-            }
-            Opcode::LessThan => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = if x < y { 1 } else { 0 };
-                i += 4;
-            }
-            Opcode::Equals => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = if x == y { 1 } else { 0 };
-                i += 4;
-            }
-            Opcode::Exit => {
-                if feedback {
-                    return Ok((output, None));
-                }
-                break;
-            }
-        }
-    }
-
-    ensure!(params.is_empty(), "leftovers in the memory");
-    Ok((output, Some(i)))
-}
-
-fn parse_input(input: &str) -> Vec<i64> {
-    input.split(',').map(|v| v.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>()
-}
-
-fn parse_opcode(opcode: i64) -> Result<(Opcode, Mode, Mode)> {
-    Ok((
-        (opcode % 100).try_into()?,
-        (opcode / 100 % 10).try_into()?,
-        (opcode / 1000 % 10).try_into()?,
-    ))
-}
-
-fn get_value(cmds: &[i64], pos: usize, mode: Mode) -> Result<i64> {
-    Ok(match mode {
-        Mode::Immediate => cmds[pos],
-        Mode::Position => cmds[cmds[pos] as usize],
-    })
-}
-
 #[cfg(test)]
 mod tests {
+    use super::super::intcode::tests::input_to_string;
     use super::*;
 
     #[test]
     fn part_one() {
         let input = &[3, 15, 3, 16, 1002, 16, 10, 16, 1, 16, 15, 15, 4, 15, 99, 0, 0];
-        assert_eq!(43210, solve_part_one(&to_string_input(input)).unwrap());
+        assert_eq!(43210, solve_part_one(&input_to_string(input)).unwrap());
 
         let input = &[
             3, 23, 3, 24, 1002, 24, 10, 24, 1002, 23, -1, 23, 101, 5, 23, 23, 1, 24, 23, 23, 4, 23,
             99, 0, 0,
         ];
-        assert_eq!(54321, solve_part_one(&to_string_input(input)).unwrap());
+        assert_eq!(54321, solve_part_one(&input_to_string(input)).unwrap());
         let input = &[
             3, 31, 3, 32, 1002, 32, 10, 32, 1001, 31, -2, 31, 1007, 31, 0, 33, 1002, 33, 7, 33, 1,
             33, 31, 31, 1, 32, 31, 31, 4, 31, 99, 0, 0, 0,
         ];
-        assert_eq!(65210, solve_part_one(&to_string_input(input)).unwrap());
+        assert_eq!(65210, solve_part_one(&input_to_string(input)).unwrap());
     }
 
     #[test]
@@ -383,17 +219,13 @@ mod tests {
             3, 26, 1001, 26, -4, 26, 3, 27, 1002, 27, 2, 27, 1, 27, 26, 27, 4, 27, 1001, 28, -1,
             28, 1005, 28, 6, 99, 0, 0, 5,
         ];
-        assert_eq!(139_629_729, solve_part_two(&to_string_input(input)).unwrap());
+        assert_eq!(139_629_729, solve_part_two(&input_to_string(input)).unwrap());
 
         let input = &[
             3, 52, 1001, 52, -5, 52, 3, 53, 1, 52, 56, 54, 1007, 54, 5, 55, 1005, 55, 26, 1001, 54,
             -5, 54, 1105, 1, 12, 1, 53, 54, 53, 1008, 54, 0, 55, 1001, 55, 1, 55, 2, 53, 55, 53, 4,
             53, 1001, 56, -1, 56, 1005, 56, 6, 99, 0, 0, 0, 0, 10,
         ];
-        assert_eq!(18216, solve_part_two(&to_string_input(input)).unwrap());
-    }
-
-    fn to_string_input<T: ToString>(input: &[T]) -> String {
-        input.iter().map(|i| i.to_string()).join(",")
+        assert_eq!(18216, solve_part_two(&input_to_string(input)).unwrap());
     }
 }

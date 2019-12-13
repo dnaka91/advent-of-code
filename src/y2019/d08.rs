@@ -161,8 +161,6 @@ pub fn solve_part_two(input: &str) -> Result<String> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn part_one() {}
 

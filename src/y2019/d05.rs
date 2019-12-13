@@ -157,157 +157,34 @@
 //!
 //! [thermal radiators]: https://en.wikipedia.org/wiki/Spacecraft_thermal_control
 
-use std::convert::{TryFrom, TryInto};
-
-use anyhow::bail;
 use anyhow::Result;
+
+use super::intcode::{self, Program};
 
 pub const INPUT: &str = include_str!("d05.txt");
 
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-enum Opcode {
-    Add,
-    Mul,
-    Input,
-    Output,
-    JumpIfTrue,
-    JumpIfFalse,
-    LessThan,
-    Equals,
-    Exit,
-}
-
-impl TryFrom<i64> for Opcode {
-    type Error = anyhow::Error;
-
-    fn try_from(value: i64) -> Result<Self, Self::Error> {
-        Ok(match value {
-            1 => Self::Add,
-            2 => Self::Mul,
-            3 => Self::Input,
-            4 => Self::Output,
-            5 => Self::JumpIfTrue,
-            6 => Self::JumpIfFalse,
-            7 => Self::LessThan,
-            8 => Self::Equals,
-            99 => Self::Exit,
-            _ => bail!("Unkown opcode {}", value),
-        })
-    }
-}
-
-#[derive(Debug, Copy, Clone, Eq, PartialEq)]
-enum Mode {
-    Position,
-    Immediate,
-}
-
-impl TryFrom<i64> for Mode {
-    type Error = anyhow::Error;
-
-    fn try_from(value: i64) -> Result<Self, Self::Error> {
-        Ok(match value {
-            0 => Self::Position,
-            1 => Self::Immediate,
-            _ => bail!("Unkown mode {}", value),
-        })
-    }
-}
-
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    let mut cmds = parse_input(input);
+    let cmds = intcode::parse_input(input)?;
+    let mut program = Program::new(cmds, &[1]);
+    let mut result = 0;
 
-    Ok(process(&mut cmds, 1)?)
+    while !program.is_finished() {
+        result = program.run(&[])?;
+    }
+
+    Ok(result)
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    let mut cmds = parse_input(input);
+    let cmds = intcode::parse_input(input)?;
+    let mut program = Program::new(cmds, &[5]);
+    let mut result = 0;
 
-    Ok(process(&mut cmds, 5)?)
-}
-
-fn process(cmds: &mut [i64], memory: i64) -> Result<i64> {
-    let mut i = 0;
-    let mut memory = memory;
-
-    while i < cmds.len() {
-        let (opcode, mode1, mode2) = parse_opcode(cmds[i])?;
-        match opcode {
-            Opcode::Add => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = x + y;
-                i += 4;
-            }
-            Opcode::Mul => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = x * y;
-                i += 4;
-            }
-            Opcode::Input => {
-                let out = cmds[i + 1] as usize;
-                cmds[out] = memory;
-                i += 2
-            }
-            Opcode::Output => {
-                memory = get_value(&cmds, i + 1, mode1)?;
-                i += 2;
-            }
-            Opcode::JumpIfTrue => {
-                if get_value(&cmds, i + 1, mode1)? != 0 {
-                    i = get_value(&cmds, i + 2, mode2)? as usize;
-                } else {
-                    i += 3;
-                }
-            }
-            Opcode::JumpIfFalse => {
-                if get_value(&cmds, i + 1, mode1)? == 0 {
-                    i = get_value(&cmds, i + 2, mode2)? as usize;
-                } else {
-                    i += 3;
-                }
-            }
-            Opcode::LessThan => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = if x < y { 1 } else { 0 };
-                i += 4;
-            }
-            Opcode::Equals => {
-                let x = get_value(&cmds, i + 1, mode1)?;
-                let y = get_value(&cmds, i + 2, mode2)?;
-                let out = cmds[i + 3] as usize;
-                cmds[out] = if x == y { 1 } else { 0 };
-                i += 4;
-            }
-            Opcode::Exit => break,
-        }
+    while !program.is_finished() {
+        result = program.run(&[])?;
     }
 
-    Ok(memory)
-}
-
-fn parse_input(input: &str) -> Vec<i64> {
-    input.split(',').map(|v| v.trim().parse::<i64>().unwrap()).collect::<Vec<i64>>()
-}
-
-fn parse_opcode(opcode: i64) -> Result<(Opcode, Mode, Mode)> {
-    Ok((
-        (opcode % 100).try_into()?,
-        (opcode / 100 % 10).try_into()?,
-        (opcode / 1000 % 10).try_into()?,
-    ))
-}
-
-fn get_value(cmds: &[i64], pos: usize, mode: Mode) -> Result<i64> {
-    Ok(match mode {
-        Mode::Immediate => cmds[pos],
-        Mode::Position => cmds[cmds[pos] as usize],
-    })
+    Ok(result)
 }
 
 #[cfg(test)]
@@ -319,39 +196,37 @@ mod tests {
 
     #[test]
     fn part_two() {
-        assert_eq!(1, process(&mut [3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], 8).unwrap());
-        assert_eq!(0, process(&mut [3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], 7).unwrap());
-        assert_eq!(1, process(&mut [3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8], 7).unwrap());
-        assert_eq!(0, process(&mut [3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8], 8).unwrap());
-        assert_eq!(1, process(&mut [3, 3, 1108, -1, 8, 3, 4, 3, 99], 8).unwrap());
-        assert_eq!(0, process(&mut [3, 3, 1108, -1, 8, 3, 4, 3, 99], 7).unwrap());
-        assert_eq!(1, process(&mut [3, 3, 1107, -1, 8, 3, 4, 3, 99], 7).unwrap());
-        assert_eq!(0, process(&mut [3, 3, 1107, -1, 8, 3, 4, 3, 99], 8).unwrap());
+        assert_eq!(1, process(vec![3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], 8).unwrap());
+        assert_eq!(0, process(vec![3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8], 7).unwrap());
+        assert_eq!(1, process(vec![3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8], 7).unwrap());
+        assert_eq!(0, process(vec![3, 9, 7, 9, 10, 9, 4, 9, 99, -1, 8], 8).unwrap());
+        assert_eq!(1, process(vec![3, 3, 1108, -1, 8, 3, 4, 3, 99], 8).unwrap());
+        assert_eq!(0, process(vec![3, 3, 1108, -1, 8, 3, 4, 3, 99], 7).unwrap());
+        assert_eq!(1, process(vec![3, 3, 1107, -1, 8, 3, 4, 3, 99], 7).unwrap());
+        assert_eq!(0, process(vec![3, 3, 1107, -1, 8, 3, 4, 3, 99], 8).unwrap());
 
         assert_eq!(
             0,
-            process(&mut [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9], 0).unwrap()
+            process(vec![3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9], 0).unwrap()
         );
         assert_eq!(
             1,
-            process(&mut [3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9], 1).unwrap()
+            process(vec![3, 12, 6, 12, 15, 1, 13, 14, 13, 4, 13, 99, -1, 0, 1, 9], 1).unwrap()
         );
-        assert_eq!(0, process(&mut [3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1], 0).unwrap());
-        assert_eq!(1, process(&mut [3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1], 1).unwrap());
+        assert_eq!(0, process(vec![3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1], 0).unwrap());
+        assert_eq!(1, process(vec![3, 3, 1105, -1, 9, 1101, 0, 0, 12, 4, 12, 99, 1], 1).unwrap());
 
-        let input = [
+        let input = vec![
             3, 21, 1008, 21, 8, 20, 1005, 20, 22, 107, 8, 21, 20, 1006, 20, 31, 1106, 0, 36, 98, 0,
             0, 1002, 21, 125, 20, 4, 20, 1105, 1, 46, 104, 999, 1105, 1, 46, 1101, 1000, 1, 20, 4,
             20, 1105, 1, 46, 98, 99,
         ];
-        assert_eq!(999, process(&mut input.clone(), 7).unwrap());
-        assert_eq!(1000, process(&mut input.clone(), 8).unwrap());
-        assert_eq!(1001, process(&mut input.clone(), 9).unwrap());
+        assert_eq!(999, process(input.clone(), 7).unwrap());
+        assert_eq!(1000, process(input.clone(), 8).unwrap());
+        assert_eq!(1001, process(input.clone(), 9).unwrap());
     }
 
-    #[test]
-    fn test_parse_opcode() {
-        assert_eq!((Opcode::Mul, Mode::Position, Mode::Immediate), parse_opcode(1002).unwrap());
-        assert_eq!((Opcode::Add, Mode::Immediate, Mode::Immediate), parse_opcode(1101).unwrap());
+    fn process(cmds: Vec<i64>, input: i64) -> Result<i64> {
+        Program::new(cmds, &[input]).run(&[])
     }
 }
