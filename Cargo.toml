@@ -6,9 +6,10 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.25"
+anyhow = "1.0.26"
 fnv = "1.0.6"
 itertools = "0.8.2"
+maplit = "1.0.2"
 thiserror = "1.0.9"
 
 [dev-dependencies]
@@ -16,4 +17,8 @@ criterion = "0.3.0"
 
 [[bench]]
 name = "year2019"
+harness = false
+
+[[bench]]
+name = "year2018"
 harness = false
