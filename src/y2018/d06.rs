@@ -73,16 +73,153 @@
 //! [Manhattan distance]: https://en.wikipedia.org/wiki/Taxicab_geometry
 //! [integer]: https://en.wikipedia.org/wiki/Integer
 
-use anyhow::Result;
+use anyhow::{anyhow, Context, Error, Result};
+use std::ops::Sub;
+use std::str::FromStr;
 
 pub const INPUT: &str = include_str!("d06.txt");
 
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
+struct Point(i32, i32);
+
+impl FromStr for Point {
+    type Err = Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut s = s.splitn(2, ',');
+        Ok(Point(
+            s.next().ok_or_else(|| anyhow!("no x value"))?.trim().parse()?,
+            s.next().ok_or_else(|| anyhow!("no y value"))?.trim().parse()?,
+        ))
+    }
+}
+
+impl Point {
+    fn distance(self, other: Point) -> i32 {
+        (self.0 - other.0).abs() + (self.1 - other.1).abs()
+    }
+}
+
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+    let points = parse_input(input)?;
+
+    let bounded = points
+        .iter()
+        .filter(|p| {
+            // TODO: Optimize with fold
+            let t = points.iter().find(|p2| p2 != p && p2.1 > p.1);
+            let r = points.iter().find(|p2| p2 != p && p2.0 > p.0);
+            let b = points.iter().find(|p2| p2 != p && p2.1 < p.1);
+            let l = points.iter().find(|p2| p2 != p && p2.0 < p.0);
+            t.is_some() && r.is_some() && b.is_some() && l.is_some()
+        })
+        .cloned()
+        .collect::<Vec<Point>>();
+
+    let m = bounded
+        .iter()
+        .map(|p| {
+            let mut count = 0;
+
+            'outer_up: for y in p.1.. {
+                for x in p.0.. {
+                    let (b1, b2) = calc(x, y, *p, &points);
+                    if b1 {
+                        if b2 {
+                            break 'outer_up;
+                        }
+                        break;
+                    }
+
+                    count += 1;
+
+                    if x >= 400 {
+                        count = 0;
+                        break;
+                    }
+                }
+                for x in (0..p.0).rev() {
+                    let (b1, b2) = calc(x, y, *p, &points);
+                    if b1 {
+                        if b2 {
+                            break 'outer_up;
+                        }
+                        break;
+                    }
+
+                    count += 1;
+
+                    if x <= 0 {
+                        count = 0;
+                    }
+                }
+
+                if y >= 400 {
+                    count = 0;
+                    break;
+                }
+            }
+            'outer_down: for y in (0..p.1).rev() {
+                for x in p.0.. {
+                    let (b1, b2) = calc(x, y, *p, &points);
+                    if b1 {
+                        if b2 {
+                            break 'outer_down;
+                        }
+                        break;
+                    }
+
+                    count += 1;
+
+                    if x >= 400 {
+                        count = 0;
+                        break;
+                    }
+                }
+                for x in (0..p.0).rev() {
+                    let (b1, b2) = calc(x, y, *p, &points);
+                    if b1 {
+                        if b2 {
+                            break 'outer_down;
+                        }
+                        break;
+                    }
+
+                    count += 1;
+
+                    if x <= 0 {
+                        count = 0;
+                    }
+                }
+
+                if y <= 0 {
+                    count = 0;
+                }
+            }
+            count
+        })
+        .max();
+
+    Ok(m.unwrap())
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
     Ok(0)
+}
+
+fn parse_input(input: &str) -> Result<Vec<Point>> {
+    input.lines().map(|l| l.parse()).collect()
+}
+
+fn calc(x: i32, y: i32, p: Point, points: &[Point]) -> (bool, bool) {
+    let pos = Point(x, y);
+    let dist = p.distance(pos);
+    let mut dists = points.iter().map(|p| p.distance(pos)).collect::<Vec<i32>>();
+    dists.sort();
+
+    assert!(dists.len() >= 2);
+
+    (dists[0] == dists[1] || dist != dists[0], x == p.0)
 }
 
 #[cfg(test)]
