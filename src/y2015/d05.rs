@@ -69,11 +69,11 @@ mod tests {
 
     #[test]
     fn part_one() {
-        assert_eq!(1,solve_part_one("ugknbfddgicrmopn").unwrap());
-        assert_eq!(1,solve_part_one("aaa").unwrap());
-        assert_eq!(0,solve_part_one("jchzalrnumimnmhp").unwrap());
-        assert_eq!(0,solve_part_one("haegwjzuvuyypxyu").unwrap());
-        assert_eq!(0,solve_part_one("dvszwmarrgswjxmb").unwrap());
+        assert_eq!(1, solve_part_one("ugknbfddgicrmopn").unwrap());
+        assert_eq!(1, solve_part_one("aaa").unwrap());
+        assert_eq!(0, solve_part_one("jchzalrnumimnmhp").unwrap());
+        assert_eq!(0, solve_part_one("haegwjzuvuyypxyu").unwrap());
+        assert_eq!(0, solve_part_one("dvszwmarrgswjxmb").unwrap());
     }
 
     #[test]

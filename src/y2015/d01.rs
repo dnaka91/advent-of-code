@@ -43,7 +43,7 @@
 //!
 //! What is the **position** of the character that causes Santa to first enter the basement?
 
-use anyhow::{Result,bail};
+use anyhow::{bail, Result};
 
 pub const INPUT: &str = include_str!("d01.txt");
 
@@ -54,10 +54,10 @@ pub fn solve_part_one(input: &str) -> Result<i64> {
 pub fn solve_part_two(input: &str) -> Result<i64> {
     let mut floor = 0;
 
-    for (i,c) in input.chars().enumerate() {
-        floor += if c == '(' { 1} else {-1};
+    for (i, c) in input.chars().enumerate() {
+        floor += if c == '(' { 1 } else { -1 };
         if floor == -1 {
-            return Ok(i as i64 +1)
+            return Ok(i as i64 + 1);
         }
     }
 

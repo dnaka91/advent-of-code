@@ -58,7 +58,7 @@ pub fn solve_part_two(input: &str) -> Result<u64> {
     bail!("no value found")
 }
 
-fn parse_input(input:&str) -> &str{
+fn parse_input(input: &str) -> &str {
     input.trim()
 }
 
