@@ -20,17 +20,46 @@
 //! [bitcoins]: https://en.wikipedia.org/wiki/Bitcoin
 //! [MD5]: https://en.wikipedia.org/wiki/MD5
 //! [hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
+//!
+//! ## Part Two
+//!
+//! Now find one that starts with **six zeroes**.
 
-use anyhow::Result;
+use anyhow::{bail, Result};
+use md5::{Digest, Md5};
 
 pub const INPUT: &str = include_str!("d04.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u64> {
+    let key = parse_input(input);
+
+    for i in 1..u64::max_value() {
+        let hash = Md5::digest(format!("{}{}", key, i).as_bytes());
+
+        if hex::encode(hash).starts_with("00000") {
+            return Ok(i);
+        }
+    }
+
+    bail!("no value found")
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<u64> {
+    let key = parse_input(input);
+
+    for i in 1..u64::max_value() {
+        let hash = Md5::digest(format!("{}{}", key, i).as_bytes());
+
+        if hex::encode(hash).starts_with("000000") {
+            return Ok(i);
+        }
+    }
+
+    bail!("no value found")
+}
+
+fn parse_input(input:&str) -> &str{
+    input.trim()
 }
 
 #[cfg(test)]
@@ -38,7 +67,10 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(609_043, solve_part_one("abcdef").unwrap());
+        assert_eq!(1_048_970, solve_part_one("pqrstuv").unwrap());
+    }
 
     #[test]
     fn part_two() {}

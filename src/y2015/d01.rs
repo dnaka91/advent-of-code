@@ -29,17 +29,39 @@
 //! - `)))` and `)())())` both result in floor `-3`.
 //!
 //! To **what floor** do the instructions take Santa?
+//!
+//! ## Part Two
+//!
+//! Now, given the same instructions, find the **position** of the first character that causes him
+//! to enter the basement (floor `-1`). The first character in the instructions has position `1`,
+//! the second character has position `2`, and so on.
+//!
+//! For example:
+//!
+//! - `)` causes him to enter the basement at character position `1`.
+//! - `()())` causes him to enter the basement at character position `5`.
+//!
+//! What is the **position** of the character that causes Santa to first enter the basement?
 
-use anyhow::Result;
+use anyhow::{Result,bail};
 
 pub const INPUT: &str = include_str!("d01.txt");
 
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+    Ok(input.chars().fold(0, |f, c| f + if c == '(' { 1 } else { -1 }))
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+    let mut floor = 0;
+
+    for (i,c) in input.chars().enumerate() {
+        floor += if c == '(' { 1} else {-1};
+        if floor == -1 {
+            return Ok(i as i64 +1)
+        }
+    }
+
+    bail!("never going to the basement")
 }
 
 #[cfg(test)]
@@ -47,8 +69,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(0, solve_part_one("(())").unwrap());
+        assert_eq!(0, solve_part_one("()()").unwrap());
+        assert_eq!(3, solve_part_one("(((").unwrap());
+        assert_eq!(3, solve_part_one("(()(()(").unwrap());
+        assert_eq!(3, solve_part_one("))(((((").unwrap());
+        assert_eq!(-1, solve_part_one("())").unwrap());
+        assert_eq!(-1, solve_part_one("))(").unwrap());
+        assert_eq!(-3, solve_part_one(")))").unwrap());
+        assert_eq!(-3, solve_part_one(")())())").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(1, solve_part_two(")").unwrap());
+        assert_eq!(5, solve_part_two("()())").unwrap());
+    }
 }
