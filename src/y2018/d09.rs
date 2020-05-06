@@ -79,12 +79,51 @@ use anyhow::Result;
 
 pub const INPUT: &str = include_str!("d09.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    let (player_count, last_marble) = parse_input(input)?;
+
+    Ok(solve(player_count, last_marble))
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<u32> {
+    let (player_count, last_marble) = parse_input(input)?;
+
+    Ok(solve(player_count, last_marble * 100))
+}
+
+fn parse_input(input: &str) -> Result<(usize, u32)> {
+    let parts = input.split_whitespace().collect::<Vec<_>>();
+    Ok((parts[0].parse()?, parts[6].parse()?))
+}
+
+fn solve(player_count: usize, last_marble: u32) -> u32 {
+    let mut playfield = Vec::with_capacity(last_marble as usize);
+    let mut players = vec![0; player_count];
+
+    let mut current_marble = 0;
+    let mut current_player = 0;
+    let mut count = 0;
+
+    playfield.push(0);
+
+    while count < last_marble {
+        count += 1;
+
+        if count % 23 == 0 {
+            current_marble = (current_marble + playfield.len() - 7) % playfield.len();
+            let marble = playfield.remove(current_marble);
+
+            players[current_player] += count + marble;
+        } else {
+            current_marble = (current_marble + 1) % playfield.len() + 1;
+
+            playfield.insert(current_marble, count);
+        }
+
+        current_player = (current_player + 1) % players.len();
+    }
+
+    players.into_iter().max().unwrap_or_default()
 }
 
 #[cfg(test)]
@@ -92,7 +131,17 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(32, solve_part_one("9 players; last marble is worth 25 points").unwrap());
+        assert_eq!(8317, solve_part_one("10 players; last marble is worth 1618 points").unwrap());
+        assert_eq!(
+            146_373,
+            solve_part_one("13 players; last marble is worth 7999 points").unwrap()
+        );
+        assert_eq!(2764, solve_part_one("17 players; last marble is worth 1104 points").unwrap());
+        assert_eq!(54718, solve_part_one("21 players; last marble is worth 6111 points").unwrap());
+        assert_eq!(37305, solve_part_one("30 players; last marble is worth 5807 points").unwrap());
+    }
 
     #[test]
     fn part_two() {}

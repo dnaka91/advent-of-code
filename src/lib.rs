@@ -1,4 +1,5 @@
 #![forbid(unsafe_code)]
+#![allow(unused_imports)]
 
 pub mod y2015;
 pub mod y2016;
