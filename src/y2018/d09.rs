@@ -74,6 +74,15 @@
 //! **What is the winning Elf's score?**
 //!
 //! [marble]: https://en.wikipedia.org/wiki/Marble_(toy)
+//!
+//! ## Part Two
+//!
+//! Amused by the speed of your answer, the Elves are curious:
+//!
+//! **What would the new winning Elf's score be if the number of the last marble were 100 times
+//! larger?**
+
+use std::collections::VecDeque;
 
 use anyhow::Result;
 
@@ -97,27 +106,31 @@ fn parse_input(input: &str) -> Result<(usize, u32)> {
 }
 
 fn solve(player_count: usize, last_marble: u32) -> u32 {
-    let mut playfield = Vec::with_capacity(last_marble as usize);
+    let mut playfield = VecDeque::with_capacity(last_marble as usize);
     let mut players = vec![0; player_count];
 
-    let mut current_marble = 0;
     let mut current_player = 0;
     let mut count = 0;
 
-    playfield.push(0);
+    playfield.push_back(0);
 
     while count < last_marble {
         count += 1;
 
         if count % 23 == 0 {
-            current_marble = (current_marble + playfield.len() - 7) % playfield.len();
-            let marble = playfield.remove(current_marble);
+            for _ in 0..7 {
+                let marble = playfield.pop_front().unwrap();
+                playfield.push_back(marble);
+            }
 
-            players[current_player] += count + marble;
+            players[current_player] += count + playfield.pop_back().unwrap();
         } else {
-            current_marble = (current_marble + 1) % playfield.len() + 1;
+            for _ in 0..2 {
+                let marble = playfield.pop_back().unwrap();
+                playfield.push_front(marble);
+            }
 
-            playfield.insert(current_marble, count);
+            playfield.push_back(count);
         }
 
         current_player = (current_player + 1) % players.len();
