@@ -95,6 +95,6 @@ mod tests {
 
     #[test]
     fn part_two() {
-        assert_eq!(10,solve_part_two("0\n3\n0\n1\n-3").unwrap());
+        assert_eq!(10, solve_part_two("0\n3\n0\n1\n-3").unwrap());
     }
 }

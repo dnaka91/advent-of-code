@@ -122,7 +122,7 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
     let iter = GridIterator::default();
     let mut grid = HashMap::new();
 
-    grid.insert((0,0), 1);
+    grid.insert((0, 0), 1);
 
     for pos in iter.skip(1) {
         let mut sum = 0;
