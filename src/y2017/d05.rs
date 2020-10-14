@@ -37,17 +37,51 @@
 //! In this example, the exit is reached in `5` steps.
 //!
 //! **How many steps** does it take to reach the exit?
+//!
+//! ## Part Two
+//!
+//! Now, the jumps are even stranger: after each jump, if the offset was **three or more**, instead
+//! **decrease** it by `1`. Otherwise, increase it by `1` as before.
+//!
+//! Using this rule with the above example, the process now takes `10` steps, and the offset values
+//! after finding the exit are left as `2 3 2 3 -1`.
+//!
+//! **How many steps** does it now take to reach the exit?
 
 use anyhow::Result;
 
 pub const INPUT: &str = include_str!("d05.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    let mut input = parse_input(input)?;
+    let mut pos = 0;
+    let mut count = 0;
+
+    while let Some(p) = input.get_mut(pos as usize) {
+        pos += *p;
+        count += 1;
+        *p += 1;
+    }
+
+    Ok(count)
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+    let mut input = parse_input(input)?;
+    let mut pos = 0;
+    let mut count = 0;
+
+    while let Some(p) = input.get_mut(pos as usize) {
+        pos += *p;
+        count += 1;
+        *p += if *p >= 3 { -1 } else { 1 }
+    }
+
+    Ok(count)
+}
+
+fn parse_input(input: &str) -> Result<Vec<i32>> {
+    input.lines().map(|l| l.parse().map_err(Into::into)).collect()
 }
 
 #[cfg(test)]
@@ -55,8 +89,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(5, solve_part_one("0\n3\n0\n1\n-3").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(10,solve_part_two("0\n3\n0\n1\n-3").unwrap());
+    }
 }

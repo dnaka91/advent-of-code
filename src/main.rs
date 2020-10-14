@@ -168,12 +168,12 @@ fn run_y2015() -> Result<()> {
     Ok(())
 }
 
-fn run<P1, T1, P2, T2>(day: u8, part1: P1, part2: P2, input: &str) -> Result<()>
+fn run<'a, P1, T1, P2, T2>(day: u8, part1: P1, part2: P2, input: &'a str) -> Result<()>
 where
-    P1: Fn(&str) -> Result<T1>,
-    P2: Fn(&str) -> Result<T2>,
-    T1: Display,
-    T2: Display,
+    P1: Fn(&'a str) -> Result<T1>,
+    P2: Fn(&'a str) -> Result<T2>,
+    T1: Display + 'a,
+    T2: Display + 'a,
 {
     println!("  Day {:02}", day);
     println!("    Part 1: {}", part1(input)?);

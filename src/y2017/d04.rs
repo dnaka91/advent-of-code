@@ -14,17 +14,51 @@
 //!
 //! The system's full passphrase list is available as your puzzle input. **How many passphrases are
 //! valid?**
+//!
+//! ## Part Two
+//!
+//! For added security, yet another system policy has been put in place. Now, a valid passphrase
+//! must contain no two words that are anagrams of each other - that is, a passphrase is invalid if
+//! any word's letters can be rearranged to form any other word in the passphrase.
+//!
+//! For example:
+//!
+//! - `abcde fghij` is a valid passphrase.
+//! - `abcde xyz ecdab` is not valid - the letters from the third word can be rearranged to form the
+//!   first word.
+//! - `a ab abc abd abf abj` is a valid passphrase, because **all** letters need to be used when
+//!   forming another word.
+//! - `iiii oiii ooii oooi oooo` is valid.
+//! - `oiii ioii iioi iiio` is not valid - any of these words can be rearranged to form any other
+//!   word.
+//!
+//! Under this new system policy, **how many passphrases are valid?**
+
+use std::collections::HashSet;
+use std::iter::FromIterator;
 
 use anyhow::Result;
+use itertools::Itertools;
 
 pub const INPUT: &str = include_str!("d04.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    let input = parse_input(input);
+
+    Ok(input.iter().filter(|l| l.iter().unique().count() == l.len()).count() as u32)
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<u32> {
+    let input = parse_input(input);
+
+    Ok(input
+        .iter()
+        .filter(|l| l.iter().map(|s| s.chars().sorted().collect_vec()).unique().count() == l.len())
+        .count() as u32)
+}
+
+fn parse_input(input: &str) -> Vec<Vec<&str>> {
+    input.lines().map(|l| l.split_whitespace().collect()).collect()
 }
 
 #[cfg(test)]
@@ -32,8 +66,18 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(1, solve_part_one("aa bb cc dd ee").unwrap());
+        assert_eq!(0, solve_part_one("aa bb cc dd aa").unwrap());
+        assert_eq!(1, solve_part_one("aa bb cc dd aaa").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(1, solve_part_two("abcde fghij").unwrap());
+        assert_eq!(0, solve_part_two("abcde xyz ecdab").unwrap());
+        assert_eq!(1, solve_part_two("a ab abc abd abf abj").unwrap());
+        assert_eq!(1, solve_part_two("iiii oiii ooii oooi oooo").unwrap());
+        assert_eq!(0, solve_part_two("oiii ioii iioi iiio").unwrap());
+    }
 }

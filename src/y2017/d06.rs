@@ -39,17 +39,74 @@
 //!
 //! Given the initial block counts in your puzzle input, **how many redistribution cycles** must be
 //! completed before a configuration is produced that has been seen before?
+//!
+//! ## Part Two
+//!
+//! Out of curiosity, the debugger would also like to know the size of the loop: starting from a
+//! state that has already been seen, how many block redistribution cycles must be performed before
+//! that same state is seen again?
+//!
+//! In the example above, `2 4 1 2` is seen again after four cycles, and so the answer in that
+//! example would be `4`.
+//!
+//! **How many cycles** are in the infinite loop that arises from the configuration in your puzzle
+//! input?
 
-use anyhow::Result;
+use std::collections::HashMap;
+
+use anyhow::{ensure, Context, Result};
+use itertools::Itertools;
 
 pub const INPUT: &str = include_str!("d06.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    Ok(solve(parse_input(input)?).0)
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<u32> {
+    Ok(solve(parse_input(input)?).1)
+}
+
+fn parse_input(input: &str) -> Result<Vec<u32>> {
+    input
+        .lines()
+        .next()
+        .context("expected one line of input")?
+        .split_whitespace()
+        .map(|v| v.parse().map_err(Into::into))
+        .collect()
+}
+
+fn find_max(values: &[u32]) -> (usize, u32) {
+    values.iter().cloned().enumerate().fold((0, 0), |max, v| if v.1 > max.1 { v } else { max })
+}
+
+fn solve(mut input: Vec<u32>) -> (u32, u32) {
+    let input_len = input.len();
+
+    let mut history = HashMap::new();
+    let mut count = 0;
+
+    history.insert(input.clone(), 0);
+
+    loop {
+        let (mut i, mut max) = find_max(&input);
+
+        count += 1;
+        input[i] = 0;
+
+        while max > 0 {
+            i += 1;
+            input[i % input_len] += 1;
+            max -= 1;
+        }
+
+        if let Some(c) = history.get(&input) {
+            return (count, count - *c);
+        }
+
+        history.insert(input.clone(), count);
+    }
 }
 
 #[cfg(test)]
@@ -57,8 +114,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(5, solve_part_one("0\t2\t7\t0").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(4, solve_part_two("0\t2\t7\t0").unwrap());
+    }
 }

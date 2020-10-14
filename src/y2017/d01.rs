@@ -37,17 +37,62 @@
 //!   `9`.
 //!
 //! **What is the solution** to your captcha?
+//!
+//! ## Part Two
+//!
+//! You notice a progress bar that jumps to 50% completion. Apparently, the door isn't yet
+//! satisfied, but it did emit a **star** as encouragement. The instructions change:
+//!
+//! Now, instead of considering the **next** digit, it wants you to consider the digit **halfway
+//! around** the circular list. That is, if your list contains `10` items, only include a digit in
+//! your sum if the digit `10/2 = 5` steps forward matches it. Fortunately, your list has an even
+//! number of elements.
+//!
+//! For example:
+//!
+//! - `1212` produces `6`: the list contains `4` items, and all four digits match the digit `2`
+//!   items ahead.
+//! - `1221` produces `0`, because every comparison is between a `1` and a `2`.
+//! - `123425` produces `4`, because both `2`s match each other, but no other digit has a match.
+//! - `123123` produces `12`.
+//! - `12131415` produces `4`.
+//!
+//! **What is the solution** to your new captcha?
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
 pub const INPUT: &str = include_str!("d01.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    let input = parse_input(input)?;
+
+    Ok(input.iter().cloned().enumerate().fold(0, |mut sum, (i, d)| {
+        if d == input[(i + 1) % input.len()] {
+            sum += d as u32;
+        }
+        sum
+    }))
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<u32> {
+    let input = parse_input(input)?;
+
+    Ok(input.iter().cloned().enumerate().fold(0, |mut sum, (i, d)| {
+        if d == input[(i + input.len() / 2) % input.len()] {
+            sum += d as u32;
+        }
+        sum
+    }))
+}
+
+fn parse_input(input: &str) -> Result<Vec<u8>> {
+    input
+        .lines()
+        .next()
+        .context("one line of input expected")?
+        .chars()
+        .map(|c| c.to_digit(10).context("invalid digit").map(|d| d as u8))
+        .collect()
 }
 
 #[cfg(test)]
@@ -55,8 +100,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(3, solve_part_one("1122").unwrap());
+        assert_eq!(4, solve_part_one("1111").unwrap());
+        assert_eq!(0, solve_part_one("1234").unwrap());
+        assert_eq!(9, solve_part_one("91212129").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(6, solve_part_two("1212").unwrap());
+        assert_eq!(0, solve_part_two("1221").unwrap());
+        assert_eq!(4, solve_part_two("123425").unwrap());
+        assert_eq!(12, solve_part_two("123123").unwrap());
+        assert_eq!(4, solve_part_two("12131415").unwrap());
+    }
 }

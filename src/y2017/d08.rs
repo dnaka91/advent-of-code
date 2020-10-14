@@ -34,26 +34,142 @@
 //! input?
 //!
 //! [jump instructions]: https://adventofcode.com/2017/day/5
+//!
+//! ## Part Two
+//!
+//! To be safe, the CPU also needs to know **the highest value held in any register during this
+//! process** so that it can decide how much memory to allocate to these operations. For example, in
+//! the above instructions, the highest value ever held was `10` (in register `c` after the third
+//! instruction was evaluated).
 
-use anyhow::Result;
+use std::cmp;
+use std::collections::BTreeMap;
+use std::str::FromStr;
+
+use anyhow::{bail, ensure, Result};
 
 pub const INPUT: &str = include_str!("d08.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<i32> {
+    let input = parse_input(input)?;
+    let mut registers = BTreeMap::new();
+
+    for instr in input {
+        if instr.condition.cmp(*registers.entry(instr.condition.register).or_default()) {
+            *registers.entry(instr.register).or_default() +=
+                if instr.increase { instr.value } else { -instr.value }
+        }
+    }
+
+    Ok(*registers.values().max().unwrap())
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<i32> {
+    let input = parse_input(input)?;
+    let mut registers = BTreeMap::new();
+    let mut max = 0;
+
+    for instr in input {
+        if instr.condition.cmp(*registers.entry(instr.condition.register).or_default()) {
+            let reg = registers.entry(instr.register).or_default();
+            *reg += if instr.increase { instr.value } else { -instr.value };
+            max = cmp::max(max, *reg);
+        }
+    }
+
+    Ok(max)
+}
+
+fn parse_input(input: &str) -> Result<Vec<Instruction<'_>>> {
+    input
+        .lines()
+        .map(|l| {
+            let parts = l.split_whitespace().collect::<Vec<_>>();
+            ensure!(parts.len() == 7, "instruction must consist of exactly 7 components");
+            ensure!(parts[3] == "if", "expected 'if' keyword at 4th position");
+
+            Ok(Instruction {
+                register: parts[0],
+                increase: parts[1] == "inc",
+                value: parts[2].parse()?,
+                condition: Condition {
+                    register: parts[4],
+                    operator: parts[5].parse()?,
+                    value: parts[6].parse()?,
+                },
+            })
+        })
+        .collect()
+}
+
+struct Instruction<'a> {
+    register: &'a str,
+    increase: bool,
+    value: i32,
+    condition: Condition<'a>,
+}
+
+struct Condition<'a> {
+    register: &'a str,
+    operator: Op,
+    value: i32,
+}
+
+impl<'a> Condition<'a> {
+    fn cmp(&self, reg: i32) -> bool {
+        match self.operator {
+            Op::GreaterThan => reg > self.value,
+            Op::LessThan => reg < self.value,
+            Op::GreaterThanEquals => reg >= self.value,
+            Op::LessThanEquals => reg <= self.value,
+            Op::Equals => reg == self.value,
+            Op::NotEquals => reg != self.value,
+        }
+    }
+}
+
+enum Op {
+    GreaterThan,
+    LessThan,
+    GreaterThanEquals,
+    LessThanEquals,
+    Equals,
+    NotEquals,
+}
+
+impl FromStr for Op {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(match s {
+            ">" => Self::GreaterThan,
+            "<" => Self::LessThan,
+            ">=" => Self::GreaterThanEquals,
+            "<=" => Self::LessThanEquals,
+            "==" => Self::Equals,
+            "!=" => Self::NotEquals,
+            _ => bail!("unsupported operator '{}'", s),
+        })
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    #[test]
-    fn part_one() {}
+    const INPUT: &str = "\
+        b inc 5 if a > 1\n\
+        a inc 1 if b < 5\n\
+        c dec -10 if a >= 1\n\
+        c inc -20 if c == 10";
 
     #[test]
-    fn part_two() {}
+    fn part_one() {
+        assert_eq!(1, solve_part_one(INPUT).unwrap());
+    }
+
+    #[test]
+    fn part_two() {
+        assert_eq!(10, solve_part_two(INPUT).unwrap());
+    }
 }

@@ -57,17 +57,85 @@
 //! - `{{<a!>},{<a!>},{<a!>},{<ab>}}`, score of `1 + 2 = 3`.
 //!
 //! **What is the total score** for all groups in your input?
+//!
+//! ## Part Two
+//!
+//! Now, you're ready to remove the garbage.
+//!
+//! To prove you've removed it, you need to count all of the characters within the garbage. The
+//! leading and trailing `<` and `>` don't count, nor do any canceled characters or the `!` doing
+//! the canceling.
+//!
+//! - `<>`, `0` characters.
+//! - `<random characters>`, `17` characters.
+//! - `<<<<>`, `3` characters.
+//! - `<{!>}>`, `2` characters.
+//! - `<!!>`, `0` characters.
+//! - `<!!!>>`, `0` characters.
+//! - `<{o"i!a,<{i<a>`, `10` characters.
+//!
+//! **How many non-canceled characters are within the garbage** in your puzzle input?
 
-use anyhow::Result;
+use anyhow::{Context, Result};
 
 pub const INPUT: &str = include_str!("d09.txt");
 
 pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+    let chars = parse_input(input)?;
+    let mut level = 0;
+    let mut garbage = false;
+    let mut skip = false;
+    let mut score = 0;
+
+    for c in chars {
+        if skip {
+            skip = false;
+            continue;
+        }
+        match c {
+            '!' => skip = true,
+            '<' => garbage = true,
+            '>' => garbage = false,
+            '{' if !garbage => {
+                level += 1;
+                score += level;
+            }
+            '}' if !garbage => level -= 1,
+            _ => {}
+        }
+    }
+
+    Ok(score)
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+    let chars = parse_input(input)?;
+    let mut garbage = false;
+    let mut skip = false;
+    let mut count = 0;
+
+    for c in chars {
+        if skip {
+            skip = false;
+            continue;
+        }
+        match c {
+            '!' => skip = true,
+            '<' if !garbage => garbage = true,
+            '>' => garbage = false,
+            _ => {
+                if garbage {
+                    count += 1;
+                }
+            }
+        }
+    }
+
+    Ok(count)
+}
+
+fn parse_input(input: &str) -> Result<impl Iterator<Item = char> + '_> {
+    Ok(input.lines().next().context("excepcted exactly 1 line of input")?.chars())
 }
 
 #[cfg(test)]
@@ -75,8 +143,25 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!(1, solve_part_one("{}").unwrap());
+        assert_eq!(6, solve_part_one("{{{}}}").unwrap());
+        assert_eq!(5, solve_part_one("{{},{}}").unwrap());
+        assert_eq!(16, solve_part_one("{{{},{},{{}}}}").unwrap());
+        assert_eq!(1, solve_part_one("{<a>,<a>,<a>,<a>}").unwrap());
+        assert_eq!(9, solve_part_one("{{<ab>},{<ab>},{<ab>},{<ab>}}").unwrap());
+        assert_eq!(9, solve_part_one("{{<!!>},{<!!>},{<!!>},{<!!>}}").unwrap());
+        assert_eq!(3, solve_part_one("{{<a!>},{<a!>},{<a!>},{<ab>}}").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!(0, solve_part_two("<>").unwrap());
+        assert_eq!(17, solve_part_two("<random characters>").unwrap());
+        assert_eq!(3, solve_part_two("<<<<>").unwrap());
+        assert_eq!(2, solve_part_two("<{!>}>").unwrap());
+        assert_eq!(0, solve_part_two("<!!>").unwrap());
+        assert_eq!(0, solve_part_two("<!!!>>").unwrap());
+        assert_eq!(10, solve_part_two("<{o\"i!a,<{i<a>").unwrap());
+    }
 }

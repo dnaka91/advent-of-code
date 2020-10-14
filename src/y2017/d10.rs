@@ -66,17 +66,152 @@
 //! However, you should instead use the standard list size of `256` (with values `0` to `255`) and
 //! the sequence of **lengths** in your puzzle input. Once this process is complete, **what is the
 //! result of multiplying the first two numbers in the list**?
+//!
+//! ## Part Two
+//!
+//! The logic you've constructed forms a single **round** of the **Knot Hash** algorithm; running
+//! the full thing requires many of these rounds. Some input and output processing is also required.
+//!
+//! First, from now on, your input should be taken not as a list of numbers, but as a string of
+//! bytes instead. Unless otherwise specified, convert characters to bytes using their
+//! [ASCII codes]. This will allow you to handle arbitrary ASCII strings, and it also ensures that
+//! your input lengths are never larger than `255`. For example, if you are given `1,2,3`, you
+//! should convert it to the ASCII codes for each character: `49,44,50,44,51`.
+//!
+//! Once you have determined the sequence of lengths to use, add the following lengths to the end of
+//! the sequence: `17, 31, 73, 47, 23`. For example, if you are given `1,2,3`, your final sequence
+//! of lengths should be `49,44,50,44,51,17,31,73,47,23` (the ASCII codes from the input string
+//! combined with the standard length suffix values).
+//!
+//! Second, instead of merely running one **round** like you did above, run a total of `64` rounds,
+//! using the same **length** sequence in each round. The **current position** and **skip size**
+//! should be preserved between rounds. For example, if the previous example was your first round,
+//! you would start your second round with the same **length** sequence
+//! (`3, 4, 1, 5, 17, 31, 73, 47, 23`, now assuming they came from ASCII codes and include the
+//! suffix), but start with the previous round's **current position** (`4`) and **skip size** (`4`).
+//!
+//! Once the rounds are complete, you will be left with the numbers from `0` to `255` in some order,
+//! called the **sparse hash**. Your next task is to reduce these to a list of only `16` numbers
+//! called the **dense hash**. To do this, use numeric bitwise [XOR] to combine each consecutive
+//! block of `16` numbers in the sparse hash (there are `16` such blocks in a list of `256`
+//! numbers). So, the first element in the dense hash is the first sixteen elements of the sparse
+//! hash XOR'd together, the second element in the dense hash is the second sixteen elements of the
+//! sparse hash XOR'd together, etc.
+//!
+//! For example, if the first sixteen elements of your sparse hash are as shown below, and the XOR
+//! operator is `^`, you would calculate the first output number like this:
+//!
+//! ```txt
+//! 65 ^ 27 ^ 9 ^ 1 ^ 4 ^ 3 ^ 40 ^ 50 ^ 91 ^ 7 ^ 6 ^ 0 ^ 2 ^ 5 ^ 68 ^ 22 = 64
+//! ```
+//!
+//! Perform this operation on each of the sixteen blocks of sixteen numbers in your sparse hash to
+//! determine the sixteen numbers in your dense hash.
+//!
+//! Finally, the standard way to represent a Knot Hash is as a single [hexadecimal] string; the
+//! final output is the dense hash in hexadecimal notation. Because each number in your dense hash
+//! will be between `0` and `255` (inclusive), always represent each number as two hexadecimal
+//! digits (including a leading zero as necessary). So, if your first three numbers are
+//! `64, 7, 255`, they correspond to the hexadecimal numbers `40, 07, ff`, and so the first six
+//! characters of the hash would be `4007ff`. Because every Knot Hash is sixteen such numbers, the
+//! hexadecimal representation is always `32` hexadecimal digits (`0`-`f`) long.
+//!
+//! Here are some example hashes:
+//!
+//! - The empty string becomes `a2582a3a0e66e6e86e3812dcb672a272`.
+//! - `AoC 2017` becomes `33efeb34ea91902bb2f59c9920caa6cd`.
+//! - `1,2,3` becomes `3efbe78a8d82f29979031a4aa0b16a9d`.
+//! - `1,2,4` becomes `63960835bcdc130f0b66d7ff4f6a5a8e`.
+//!
+//! Treating your puzzle input as a string of ASCII characters, **what is the Knot Hash of your
+//! puzzle input?** Ignore any leading or trailing whitespace you might encounter.
+//!
+//! [ASCII codes]: https://en.wikipedia.org/wiki/ASCII#Printable_characters
+//! [XOR]: https://en.wikipedia.org/wiki/Bitwise_operation#XOR
+//! [hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
 
-use anyhow::Result;
+use std::fmt::Write;
+
+use anyhow::{Context, Result};
 
 pub const INPUT: &str = include_str!("d10.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<u32> {
+    let lengths = parse_input_one(input)?;
+    let mut pos = 0;
+    let mut values = [0u8; 256];
+    let values_len = values.len();
+
+    for (i, value) in values.iter_mut().enumerate() {
+        *value = i as u8;
+    }
+
+    for (skip, length) in lengths.iter().enumerate() {
+        for i in 0..length / 2 {
+            values.swap(
+                (pos + i) as usize % values_len,
+                (pos + length - i - 1) as usize % values_len,
+            );
+        }
+
+        pos += length + skip as u32;
+    }
+
+    Ok(values[0] as u32 * values[1] as u32)
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<String> {
+    let mut lengths = parse_input_two(input)?;
+    lengths.extend(&[17, 31, 73, 47, 23]);
+
+    let mut pos = 0;
+    let mut skip = 0;
+    let mut values = [0u8; 256];
+    let values_len = values.len();
+
+    for (i, value) in values.iter_mut().enumerate() {
+        *value = i as u8;
+    }
+
+    for i in 0..64 {
+        for length in lengths.iter().cloned() {
+            let length = length as u32;
+
+            for i in 0..length / 2 {
+                values.swap(
+                    (pos + i) as usize % values_len,
+                    (pos + length - i - 1) as usize % values_len,
+                );
+            }
+
+            skip += 1;
+            pos += length + skip;
+        }
+    }
+
+    let hex = values.chunks(16).map(|c| c.iter().fold(0, |xor, v| xor ^ v)).fold(
+        String::with_capacity(32),
+        |mut s, v| {
+            write!(&mut s, "{:02x}", v).unwrap();
+            s
+        },
+    );
+
+    Ok(hex)
+}
+
+fn parse_input_one(input: &str) -> Result<Vec<u32>> {
+    input
+        .lines()
+        .next()
+        .context("expected exactly 1 line of input")?
+        .split(',')
+        .map(|v| v.parse().map_err(Into::into))
+        .collect()
+}
+
+fn parse_input_two(input: &str) -> Result<Vec<u8>> {
+    Ok(input.lines().next().context("expected exactly 1 line of input")?.bytes().collect())
 }
 
 #[cfg(test)]
@@ -87,5 +222,10 @@ mod tests {
     fn part_one() {}
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!("a2582a3a0e66e6e86e3812dcb672a272", solve_part_two("\n").unwrap());
+        assert_eq!("33efeb34ea91902bb2f59c9920caa6cd", solve_part_two("AoC 2017").unwrap());
+        assert_eq!("3efbe78a8d82f29979031a4aa0b16a9d", solve_part_two("1,2,3").unwrap());
+        assert_eq!("63960835bcdc130f0b66d7ff4f6a5a8e", solve_part_two("1,2,4").unwrap());
+    }
 }
