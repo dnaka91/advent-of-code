@@ -6,16 +6,16 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.28"
-fnv = "1.0.6"
+anyhow = "1.0.33"
+fnv = "1.0.7"
 hex = "0.4.2"
 itertools = "0.9.0"
 maplit = "1.0.2"
-md-5 = "0.8.0"
-thiserror = "1.0.16"
+md-5 = "0.9.1"
+thiserror = "1.0.21"
 
 [dev-dependencies]
-criterion = "0.3.2"
+criterion = "0.3.3"
 
 [[bench]]
 name = "year2019"
