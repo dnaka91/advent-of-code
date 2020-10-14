@@ -223,7 +223,7 @@ mod tests {
         ];
         assert_eq!(999, process(input.clone(), 7).unwrap());
         assert_eq!(1000, process(input.clone(), 8).unwrap());
-        assert_eq!(1001, process(input.clone(), 9).unwrap());
+        assert_eq!(1001, process(input, 9).unwrap());
     }
 
     fn process(cmds: Vec<i64>, input: i64) -> Result<i64> {

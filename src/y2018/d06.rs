@@ -215,7 +215,7 @@ fn calc(x: i32, y: i32, p: Point, points: &[Point]) -> (bool, bool) {
     let pos = Point(x, y);
     let dist = p.distance(pos);
     let mut dists = points.iter().map(|p| p.distance(pos)).collect::<Vec<i32>>();
-    dists.sort();
+    dists.sort_unstable();
 
     assert!(dists.len() >= 2);
 
