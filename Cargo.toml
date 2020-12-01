@@ -18,6 +18,10 @@ thiserror = "1.0.22"
 criterion = "0.3.3"
 
 [[bench]]
+name = "year2020"
+harness = false
+
+[[bench]]
 name = "year2019"
 harness = false
 
