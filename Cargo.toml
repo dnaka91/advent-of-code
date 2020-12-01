@@ -6,13 +6,13 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.33"
+anyhow = "1.0.34"
 fnv = "1.0.7"
 hex = "0.4.2"
 itertools = "0.9.0"
 maplit = "1.0.2"
 md-5 = "0.9.1"
-thiserror = "1.0.21"
+thiserror = "1.0.22"
 
 [dev-dependencies]
 criterion = "0.3.3"
