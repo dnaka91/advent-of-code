@@ -38,6 +38,8 @@
 //!
 //! **What is the solution** to your captcha?
 //!
+//! [captcha]: https://en.wikipedia.org/wiki/CAPTCHA
+//!
 //! ## Part Two
 //!
 //! You notice a progress bar that jumps to 50% completion. Apparently, the door isn't yet

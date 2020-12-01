@@ -59,7 +59,7 @@
 //! malfunctioning opcodes when run in test mode; it should only output a single value, the BOOST
 //! keycode. **What BOOST keycode does it produce?**
 //!
-//! [Your existing Intcode computer]: https://adventofcode.com/2019/day/5
+//! [Your existing Intcode computer]: super::d05
 //! [copy of itself]: https://en.wikipedia.org/wiki/Quine_(computing)
 //!
 //! ## Part Two

@@ -30,10 +30,10 @@ fn y2018(c: &mut Criterion) {
     run(c, 25, d25::solve_part_one, d25::solve_part_two, d25::INPUT);
 }
 
-fn run<P1, T1, P2, T2>(c: &mut Criterion, day: u8, part1: P1, part2: P2, input: &str)
+fn run<'a, P1, T1, P2, T2>(c: &mut Criterion, day: u8, part1: P1, part2: P2, input: &'a str)
 where
-    P1: Fn(&str) -> T1,
-    P2: Fn(&str) -> T2,
+    P1: Fn(&'a str) -> T1 + 'a,
+    P2: Fn(&'a str) -> T2 + 'a,
 {
     c.bench_function(&format!("Y2018 D{:02} P1", day), |b| b.iter(|| part1(black_box(input))));
     c.bench_function(&format!("Y2018 D{:02} P2", day), |b| b.iter(|| part2(black_box(input))));

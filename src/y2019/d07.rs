@@ -83,7 +83,7 @@
 //! be sent to the thrusters?**
 //!
 //! [amplifiers]: https://en.wikipedia.org/wiki/Amplifier
-//! [existing Intcode computer]: https://adventofcode.com/2019/day/5
+//! [existing Intcode computer]: super::d05
 //!
 //! ## Part Two
 //!

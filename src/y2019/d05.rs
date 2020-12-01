@@ -89,7 +89,7 @@
 //! After providing `1` to the only input instruction and passing all the tests, **what diagnostic
 //! code does the program produce?**
 //!
-//! [your existing Intcode computer]: https://adventofcode.com/2019/day/2
+//! [your existing Intcode computer]: super::d02
 //!
 //! ## Part Two
 //!
