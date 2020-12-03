@@ -4,18 +4,17 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: "0 0 * * 0"
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
         rust: [stable, beta, nightly]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -32,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
