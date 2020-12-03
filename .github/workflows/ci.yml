@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]
-        rust: [stable, beta, nightly]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -19,13 +18,12 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
+          toolchain: stable
           override: true
       - name: Test
         uses: actions-rs/cargo@v1
         with:
           command: test
-        continue-on-error: ${{ matrix.rust == 'nightly' }}
   lint:
     name: Lint
     runs-on: ubuntu-latest
