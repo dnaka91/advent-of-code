@@ -23,11 +23,17 @@ cargo bench
 
 ## Progress
 
+The progress for each year is tracked here in the following sections, but you can **check out the
+[documentation]** of this crate as well, containing **all puzzle descriptions** and the current
+progress displayed as the **ASCII graphics** from the Advent of Code site.
+
+[documentation]: https://dnaka91.github.io/advent-of-code/aoc/index.html
+
 ### Year 2020
 
 |       |       |       |       |       |
 | ----- | ----- | ----- | ----- | ----- |
-| 1 ⭐️⭐️  | 2 ⭐️⭐️  | 3 ☆☆  | 4 ☆☆  | 5 ☆☆  |
+| 1 ⭐️⭐️  | 2 ⭐️⭐️  | 3 ⭐️⭐️  | 4 ⭐️⭐️  | 5 ⭐️⭐️  |
 | 6 ☆☆  | 7 ☆☆  | 8 ☆☆  | 9 ☆☆  | 10 ☆☆ |
 | 11 ☆☆ | 12 ☆☆ | 13 ☆☆ | 14 ☆☆ | 15 ☆☆ |
 | 16 ☆☆ | 17 ☆☆ | 18 ☆☆ | 19 ☆☆ | 20 ☆☆ |
