@@ -85,9 +85,18 @@ fn parse_input(input: &str) -> Result<Vec<u32>> {
 
 #[cfg(test)]
 mod tests {
+    use indoc::indoc;
+
     use super::*;
 
-    const INPUT: &str = "1721\n979\n366\n299\n675\n1456";
+    const INPUT: &str = indoc! {"
+        1721
+        979
+        366
+        299
+        675
+        1456
+    "};
 
     #[test]
     fn part_one() {

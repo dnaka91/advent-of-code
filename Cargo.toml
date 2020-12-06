@@ -6,7 +6,7 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.34"
+anyhow = "1.0.35"
 fnv = "1.0.7"
 hex = "0.4.2"
 itertools = "0.9.0"
@@ -16,6 +16,7 @@ thiserror = "1.0.22"
 
 [dev-dependencies]
 criterion = "0.3.3"
+indoc = "1.0.3"
 
 [[bench]]
 name = "year2020"

@@ -146,29 +146,35 @@ fn parse_input(input: &str) -> Vec<Vec<&str>> {
 
 #[cfg(test)]
 mod tests {
+    use indoc::indoc;
+
     use super::*;
 
-    const INPUT: &str = "\
-    abc\n\
-    \n\
-    a\n\
-    b\n\
-    c\n\
-    \n\
-    ab\n\
-    ac\n\
-    \n\
-    a\n\
-    a\n\
-    a\n\
-    a\n\
-    \n\
-    b\n\
-    ";
+    const INPUT: &str = indoc! {"
+        abc
+
+        a
+        b
+        c
+
+        ab
+        ac
+
+        a
+        a
+        a
+        a
+
+        b
+    "};
 
     #[test]
     fn part_one() {
-        let input = "abcx\nabcy\nabcz";
+        let input = indoc! {"
+            abcx
+            abcy
+            abcz
+        "};
         assert_eq!(6, solve_part_one(input).unwrap());
         assert_eq!(11, solve_part_one(INPUT).unwrap());
     }
