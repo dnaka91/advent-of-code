@@ -12,6 +12,7 @@ hex = "0.4.2"
 itertools = "0.9.0"
 maplit = "1.0.2"
 md-5 = "0.9.1"
+rayon = "1.5.0"
 thiserror = "1.0.22"
 
 [dev-dependencies]

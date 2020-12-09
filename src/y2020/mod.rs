@@ -50,23 +50,23 @@
 //! <a href="d06/index.html" class="calendar-day6 calendar-verycomplete">  <span class="calendar-color-b">~</span>    <span class="calendar-color-b">~</span> <span class="calendar-color-g">''</span>  <span class="calendar-color-g">..</span><span class="calendar-color-a">_____/</span> <span class="calendar-color-b">~</span>   <span class="calendar-color-b">~</span>  <span class="calendar-color-b">~</span>  <span class="calendar-color-b">~</span>      <span class="calendar-color-b">~</span>           <span class="calendar-day"> 6</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! <a href="d07/index.html" class="calendar-day7 calendar-verycomplete"> <span class="calendar-color-b">~</span>  <span class="calendar-color-b">~</span> <span class="calendar-color-b">~</span>   <span class="calendar-color-b">~</span> <span class="calendar-color-g">:</span><span class="calendar-color-a">[]</span><span class="calendar-color-g">'.</span>   <span class="calendar-color-b">~</span>   <span class="calendar-color-b">~</span>      <span class="calendar-color-b">~</span>                   <span class="calendar-day"> 7</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! <a href="d08/index.html" class="calendar-day8 calendar-verycomplete">       <span class="calendar-color-b">~</span>     <span class="calendar-color-g">'.</span><span class="calendar-color-a">\</span> <span class="calendar-color-b">~</span>        <span class="calendar-color-b">~</span>  <span class="calendar-color-b">~</span>                     <span class="calendar-day"> 8</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <span aria-hidden="true" class=""> ~   ~      ~   <span class="calendar-color-a">\</span>  ~                             </span>
-//! <span aria-hidden="true" class="calendar-day9">               ~ <span class="calendar-color-a">\</span>                                 <span class="calendar-day"> 9</span></span>
-//! <span aria-hidden="true" class="">                    ~                            </span>
+//! <span aria-hidden="true" class=""> <span class="calendar-color-b">~</span>   <span class="calendar-color-b">~</span>      <span class="calendar-color-b">~</span>   <span class="calendar-color-a">\</span>  <span class="calendar-color-b">~</span>                             </span>
+//! <a href="d09/index.html" class="calendar-day9 calendar-verycomplete">               <span class="calendar-color-b">~</span> <span class="calendar-color-a">\</span>                                 <span class="calendar-day"> 9</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <span aria-hidden="true" class="">                  <span class="calendar-color-a">\</span> <span class="calendar-color-b">~</span>                            </span>
+//! <span aria-hidden="true" class="">                   <span class="calendar-color-a">\</span>                             </span>
+//! <span aria-hidden="true" class="">                   ~<span class="calendar-color-a">\</span>                            </span>
+//! <span aria-hidden="true" class="">                     <span class="calendar-color-a">\</span> ~                         </span>
+//! <span aria-hidden="true" class="calendar-day10">                   ~  <span class="calendar-color-a">\</span>   ~                        <span class="calendar-day">10</span></span>
+//! <span aria-hidden="true" class="">                           .                     </span>
+//! <span aria-hidden="true" class="">                     <span class="calendar-color-b">~</span>  .<span class="calendar-color-g">'</span>  <span class="calendar-color-g">:</span>                    </span>
+//! <span aria-hidden="true" class="">                       <span class="calendar-color-g">:</span>   <span class="calendar-color-g">.</span>'                    </span>
+//! <span aria-hidden="true" class="">                         <span class="calendar-color-g">'</span>     <span class="calendar-color-b">~</span>                 </span>
 //! <span aria-hidden="true" class="">                                                 </span>
 //! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                     ~   '  :                    </span>
-//! <span aria-hidden="true" class="">                       :   .                     </span>
-//! <span aria-hidden="true" class="">                         '     ~                 </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                                ~                </span>
-//! <span aria-hidden="true" class="">                                                 </span>
-//! <span aria-hidden="true" class="">                             .      .  .         </span>
-//! <span aria-hidden="true" class="">                               .            ~    </span>
+//! <span aria-hidden="true" class="">                                <span class="calendar-color-b">~</span>                </span>
+//! <span aria-hidden="true" class="">                           ~                     </span>
+//! <span aria-hidden="true" class="">                             <span class="calendar-color-g">.</span> ..   <span class="calendar-color-g">.</span>  <span class="calendar-color-g">.</span>        ~</span>
+//! <span aria-hidden="true" class="">                              '<span class="calendar-color-g">.</span>            <span class="calendar-color-b">~</span>    </span>
 //! </pre>
 
 #![allow(unused_variables)]
@@ -79,3 +79,4 @@ pub mod d05;
 pub mod d06;
 pub mod d07;
 pub mod d08;
+pub mod d09;
