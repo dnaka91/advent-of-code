@@ -100,9 +100,9 @@ pub fn solve_part_two(input: &str) -> Result<u16> {
     seats
         .iter()
         .enumerate()
-        .skip_while(|(i, v)| !*v)
-        .find(|(i, v)| !*v)
-        .map(|(i, v)| i as u16)
+        .skip_while(|(_, v)| !*v)
+        .find(|(_, v)| !*v)
+        .map(|(i, _)| i as u16)
         .context("no seat ID found")
 }
 
