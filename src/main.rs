@@ -29,7 +29,7 @@ fn run_y2020() -> Result<()> {
     run(7, d07::solve_part_one, d07::solve_part_two, d07::INPUT)?;
     run(8, d08::solve_part_one, d08::solve_part_two, d08::INPUT)?;
     run(9, d09::solve_part_one, d09::solve_part_two, d09::INPUT)?;
-    // run(10, d10::solve_part_one, d10::solve_part_two, d10::INPUT)?;
+    run(10, d10::solve_part_one, d10::solve_part_two, d10::INPUT)?;
     // run(11, d11::solve_part_one, d11::solve_part_two, d11::INPUT)?;
     // run(12, d12::solve_part_one, d12::solve_part_two, d12::INPUT)?;
     // run(13, d13::solve_part_one, d13::solve_part_two, d13::INPUT)?;
