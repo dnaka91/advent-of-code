@@ -14,7 +14,7 @@ fn y2020(c: &mut Criterion) {
     run(c, 9, d09::solve_part_one, d09::solve_part_two, d09::INPUT);
     run(c, 10, d10::solve_part_one, d10::solve_part_two, d10::INPUT);
     run(c, 11, d11::solve_part_one, d11::solve_part_two, d11::INPUT);
-    // run(c, 12, d12::solve_part_one, d12::solve_part_two, d12::INPUT);
+    run(c, 12, d12::solve_part_one, d12::solve_part_two, d12::INPUT);
     // run(c, 13, d13::solve_part_one, d13::solve_part_two, d13::INPUT);
     // run(c, 14, d14::solve_part_one, d14::solve_part_two, d14::INPUT);
     // run(c, 15, d15::solve_part_one, d15::solve_part_two, d15::INPUT);
