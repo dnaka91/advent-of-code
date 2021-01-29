@@ -20,7 +20,7 @@ fn y2020(c: &mut Criterion) {
     run(c, 15, d15::solve_part_one, d15::solve_part_two, d15::INPUT);
     run(c, 16, d16::solve_part_one, d16::solve_part_two, d16::INPUT);
     run(c, 17, d17::solve_part_one, d17::solve_part_two, d17::INPUT);
-    // run(c, 18, d18::solve_part_one, d18::solve_part_two, d18::INPUT);
+    run(c, 18, d18::solve_part_one, d18::solve_part_two, d18::INPUT);
     // run(c, 19, d19::solve_part_one, d19::solve_part_two, d19::INPUT);
     // run(c, 20, d20::solve_part_one, d20::solve_part_two, d20::INPUT);
     // run(c, 21, d21::solve_part_one, d21::solve_part_two, d21::INPUT);
