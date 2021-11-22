@@ -85,13 +85,13 @@ pub const INPUT: &str = include_str!("d09.txt");
 pub fn solve_part_one(input: &str) -> Result<i64> {
     let cmds = intcode::parse_input(input)?;
 
-    Ok(Program::new(cmds, &[1]).run(&[])?)
+    Program::new(cmds, &[1]).run(&[])
 }
 
 pub fn solve_part_two(input: &str) -> Result<i64> {
     let cmds = intcode::parse_input(input)?;
 
-    Ok(Program::new(cmds, &[2]).run(&[])?)
+    Program::new(cmds, &[2]).run(&[])
 }
 
 #[cfg(test)]

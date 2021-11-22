@@ -163,17 +163,17 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
             let byr = p
                 .get("byr")
                 .and_then(|v| v.parse::<u16>().ok())
-                .filter(|&v| 1920 <= v && v <= 2002)
+                .filter(|v| (1920..=2002).contains(v))
                 .is_some();
             let iyr = p
                 .get("iyr")
                 .and_then(|v| v.parse::<u16>().ok())
-                .filter(|&v| 2010 <= v && v <= 2020)
+                .filter(|v| (2010..=2020).contains(v))
                 .is_some();
             let eyr = p
                 .get("eyr")
                 .and_then(|v| v.parse::<u16>().ok())
-                .filter(|&v| 2020 <= v && v <= 2030)
+                .filter(|v| (2020..=2030).contains(v))
                 .is_some();
             let hgt = p
                 .get("hgt")

@@ -154,12 +154,11 @@ pub const INPUT: &str = include_str!("d13.txt");
 pub fn solve_part_one(input: &str) -> Result<u64> {
     let (departure, ids) = parse_input(input)?;
 
-    Ok(ids
-        .into_iter()
+    ids.into_iter()
         .map(|(_, id)| (id, id - departure % id))
         .min_by(|a, b| a.1.cmp(&b.1))
         .map(|(id, diff)| id * diff)
-        .context("no matching ID found")?)
+        .context("no matching ID found")
 }
 
 pub fn solve_part_two(input: &str) -> Result<u64> {

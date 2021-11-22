@@ -238,7 +238,7 @@ fn parse_input(input: &str) -> Result<Vec<InstructionSet>> {
             i if i.starts_with("mem[") && i.ends_with(']') => {
                 let address = i
                     .strip_prefix("mem[")
-                    .and_then(|i| i.strip_suffix("]"))
+                    .and_then(|i| i.strip_suffix(']'))
                     .context("invalid memory instruction format")?
                     .parse()?;
                 let value = value.parse()?;

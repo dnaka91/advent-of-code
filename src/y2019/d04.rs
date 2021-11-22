@@ -65,7 +65,7 @@ fn parse_input(input: &str) -> Result<(u32, u32)> {
 }
 
 fn verify_password(pw: u32, part2: bool) -> bool {
-    if 111_111 <= pw && pw <= 999_999 {
+    if (111_111..=999_999).contains(&pw) {
         let chars = pw.to_string().bytes().collect::<Vec<u8>>();
         return has_pairs(&chars) && is_rising(&chars) && (!part2 || has_unique_pair(&chars));
     }
