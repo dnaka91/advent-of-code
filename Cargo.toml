@@ -6,18 +6,18 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.35"
+anyhow = "1.0.47"
 fnv = "1.0.7"
-hex = "0.4.2"
-itertools = "0.9.0"
+hex = "0.4.3"
+itertools = "0.10.1"
 maplit = "1.0.2"
 md-5 = "0.9.1"
 num-integer = "0.1.44"
-rayon = "1.5.0"
-thiserror = "1.0.22"
+rayon = "1.5.1"
+thiserror = "1.0.30"
 
 [dev-dependencies]
-criterion = "0.3.3"
+criterion = "0.3.5"
 indoc = "1.0.3"
 
 [[bench]]
