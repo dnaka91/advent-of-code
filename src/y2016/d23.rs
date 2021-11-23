@@ -62,9 +62,9 @@
 //!
 //! **What value** should be sent to the safe?
 //!
-//! [prototype computer]: https://adventofcode.com/2016/day/11
-//! [assembunny code]: https://adventofcode.com/2016/day/12
-//! [monorail computer]: https://adventofcode.com/2016/day/12
+//! [prototype computer]: super::d11
+//! [assembunny code]: super::d12
+//! [monorail computer]: super::d12
 
 use anyhow::Result;
 

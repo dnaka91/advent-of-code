@@ -133,7 +133,7 @@
 //! puzzle input. What is the **least amount of mana** you can spend and still win the fight? (Do
 //! not include mana recharge effects as "spending" negative mana.)
 //!
-//! [swords and stuff]: https://adventofcode.com/2015/day/21
+//! [swords and stuff]: super::d21
 
 use anyhow::Result;
 

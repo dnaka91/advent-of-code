@@ -25,7 +25,7 @@
 //! If you run the program (your puzzle input), **how many times is the mul instruction invoked?**
 //!
 //! [halt and catch fire]: https://en.wikipedia.org/wiki/Halt_and_Catch_Fire
-//! [tablet]: https://adventofcode.com/2017/day/18
+//! [tablet]: super::d18
 
 use anyhow::Result;
 

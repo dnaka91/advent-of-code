@@ -85,7 +85,7 @@
 //! In your grid of 100x100 lights, given your initial configuration, **how many lights are on after
 //! 100 steps**?
 //!
-//! [million lights incident]: https://adventofcode.com/2015/day/6
+//! [million lights incident]: super::d06
 
 use anyhow::Result;
 

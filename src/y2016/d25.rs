@@ -44,8 +44,8 @@
 //! the code to output a clock signal of `0`, `1`, `0`, `1`... repeating forever?
 //!
 //! [clock signal]: https://en.wikipedia.org/wiki/Clock_signal
-//! [assembunny]: https://adventofcode.com/2016/day/12
-//! [just recently]: https://adventofcode.com/2016/day/23
+//! [assembunny]: super::d12
+//! [just recently]: super::d23
 
 use anyhow::Result;
 

@@ -47,7 +47,7 @@
 //! `a`?**
 //!
 //! [tiger lilies]: https://www.google.com/search?q=tiger+lilies&tbm=isch
-//! [new computer]: https://adventofcode.com/2016/day/11
+//! [new computer]: super::d11
 //! [registers]: https://en.wikipedia.org/wiki/Processor_register
 //! [integer]: https://en.wikipedia.org/wiki/Integer
 //! [instructions]: https://en.wikipedia.org/wiki/Instruction_set

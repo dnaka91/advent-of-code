@@ -21,13 +21,13 @@ fn y2020(c: &mut Criterion) {
     run(c, 16, d16::solve_part_one, d16::solve_part_two, d16::INPUT);
     run(c, 17, d17::solve_part_one, d17::solve_part_two, d17::INPUT);
     run(c, 18, d18::solve_part_one, d18::solve_part_two, d18::INPUT);
-    // run(c, 19, d19::solve_part_one, d19::solve_part_two, d19::INPUT);
-    // run(c, 20, d20::solve_part_one, d20::solve_part_two, d20::INPUT);
-    // run(c, 21, d21::solve_part_one, d21::solve_part_two, d21::INPUT);
-    // run(c, 22, d22::solve_part_one, d22::solve_part_two, d22::INPUT);
-    // run(c, 23, d23::solve_part_one, d23::solve_part_two, d23::INPUT);
-    // run(c, 24, d24::solve_part_one, d24::solve_part_two, d24::INPUT);
-    // run(c, 25, d25::solve_part_one, d25::solve_part_two, d25::INPUT);
+    run(c, 19, d19::solve_part_one, d19::solve_part_two, d19::INPUT);
+    run(c, 20, d20::solve_part_one, d20::solve_part_two, d20::INPUT);
+    run(c, 21, d21::solve_part_one, d21::solve_part_two, d21::INPUT);
+    run(c, 22, d22::solve_part_one, d22::solve_part_two, d22::INPUT);
+    run(c, 23, d23::solve_part_one, d23::solve_part_two, d23::INPUT);
+    run(c, 24, d24::solve_part_one, d24::solve_part_two, d24::INPUT);
+    run(c, 25, d25::solve_part_one, d25::solve_part_two, d25::INPUT);
 }
 
 fn run<'a, P1, T1, P2, T2>(c: &mut Criterion, day: u8, part1: P1, part2: P2, input: &'a str)

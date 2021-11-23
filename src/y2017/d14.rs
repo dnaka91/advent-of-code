@@ -46,7 +46,7 @@
 //!
 //! [disk defragmenter]: https://en.wikipedia.org/wiki/Defragmentation
 //! [sit and watch it for a while]: https://www.youtube.com/watch?v=kPv1gQ5Rs8A&t=37
-//! [knot hashes]: https://adventofcode.com/2017/day/10
+//! [knot hashes]: super::d10
 
 use anyhow::Result;
 

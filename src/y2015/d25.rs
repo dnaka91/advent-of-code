@@ -69,7 +69,7 @@
 //! Santa looks nervous. Your puzzle input contains the message on the machine's console. **What
 //! code do you give the machine?**
 //!
-//! [white Christmas]: https://adventofcode.com/2015/day/1
+//! [white Christmas]: super::d01
 //! [enter a code from the instruction manual]: https://en.wikipedia.org/wiki/Copy_protection#Early_video_games
 //! [infinite paper is covered]: https://en.wikipedia.org/wiki/Cantor's_diagonal_argument
 

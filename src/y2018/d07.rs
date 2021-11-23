@@ -59,7 +59,7 @@
 //!
 //! **In what order should the steps in your instructions be completed?**
 //!
-//! [Ancient Nordic Elvish]: https://adventofcode.com/2015/day/6
+//! [Ancient Nordic Elvish]: crate::y2015::d06
 
 use anyhow::Result;
 

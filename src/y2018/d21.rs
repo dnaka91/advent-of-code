@@ -41,8 +41,8 @@
 //! as multiple instructions executed.)
 //!
 //! [integer underflow]: https://cwe.mitre.org/data/definitions/191.html
-//! [manual section one]: https://adventofcode.com/2018/day/16
-//! [manual section two]: https://adventofcode.com/2018/day/19
+//! [manual section one]: super::d16
+//! [manual section two]: super::d19
 
 use anyhow::Result;
 

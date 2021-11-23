@@ -33,7 +33,7 @@
 //! **What is the largest value in any register** after completing the instructions in your puzzle
 //! input?
 //!
-//! [jump instructions]: https://adventofcode.com/2017/day/5
+//! [jump instructions]: super::d05
 //!
 //! ## Part Two
 //!

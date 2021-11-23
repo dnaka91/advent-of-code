@@ -89,10 +89,10 @@
 //!
 //! **What value is left in register `0`** when the background process halts?
 //!
-//! [device's opcodes]: https://adventofcode.com/2018/day/16
-//! [manual]: https://adventofcode.com/2018/day/16
+//! [device's opcodes]: super::d16
+//! [manual]: super::d16
 //! [instruction pointer]: https://en.wikipedia.org/wiki/Program_counter
-//! [the last time you worked with this device]: https://adventofcode.com/2018/day/16
+//! [the last time you worked with this device]: super::d16
 
 use anyhow::Result;
 
