@@ -21,6 +21,10 @@ criterion = "0.3.5"
 indoc = "1.0.3"
 
 [[bench]]
+name = "year2021"
+harness = false
+
+[[bench]]
 name = "year2020"
 harness = false
 
