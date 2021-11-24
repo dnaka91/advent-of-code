@@ -1,15 +1,26 @@
-FROM rust:1.39-alpine as builder
+FROM rust:1.56-alpine as builder
 
-WORKDIR /app
+WORKDIR /volume
+
+RUN apk add --no-cache musl-dev=~1.2
+
+COPY benches/ benches/
 COPY src/ src/
 COPY Cargo.lock Cargo.toml ./
 
-RUN cargo install --path .
+RUN cargo build --release && \
+    strip --strip-all target/release/aoc
 
+FROM alpine:3.14 as newuser
 
-FROM alpine:3.10
+RUN echo "aoc:x:1000:" > /tmp/group && \
+    echo "aoc:x:1000:1000::/dev/null:/sbin/nologin" > /tmp/passwd
 
-WORKDIR /app
-COPY --from=builder /usr/local/cargo/bin/aoc /app/
+FROM scratch
 
-ENTRYPOINT ["./aoc"]
+COPY --from=builder /volume/target/release/aoc /bin/
+COPY --from=newuser /tmp/group /tmp/passwd /etc/
+
+USER aoc
+
+ENTRYPOINT ["/bin/aoc"]
