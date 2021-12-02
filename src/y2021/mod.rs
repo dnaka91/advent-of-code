@@ -1,4 +1,4 @@
-//! # Year 2020
+//! # Year 2021
 //!
 //! <style>
 //! .calendar {
@@ -33,13 +33,15 @@
 //! .calendar a.calendar-verycomplete .calendar-mark-complete { visibility: visible; color: #ffff66; }
 //! .calendar a.calendar-verycomplete .calendar-mark-verycomplete { visibility: visible; color: #ffff66; }
 //!
+//! .calendar .calendar-color-g { color:#a47a4d; }
 //! .calendar .calendar-color-w1 { color:#00c8ff; }
+//! .calendar .calendar-color-w2 { color:#00b5ed; }
 //! </style>
 //!
 //! <pre class="calendar">
-//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete">                      ~   ~  <span class="calendar-color-w1">~</span> ~<span class="calendar-color-w1">~</span> <span class="calendar-color-w1">~~</span>~<span class="calendar-color-w1">~~~</span>~<span class="calendar-color-w1">~~</span>~<span class="calendar-color-w1">~</span>~~<span class="calendar-color-w1">~</span>~  <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <span aria-hidden="true" class="calendar-day2">                                           ..''''  <span class="calendar-day"> 2</span></span>
-//! <span aria-hidden="true" class="calendar-day3">                                                   <span class="calendar-day"> 3</span></span>
+//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete">                   ~  <span class="calendar-color-w1">~</span> ~ <span class="calendar-color-w1">~</span>~ <span class="calendar-color-w1">~</span>~<span class="calendar-color-w1">~~</span>~<span class="calendar-color-w1">~~~~~~~~~~~~~~~</span>  <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d02/index.html" class="calendar-day2 calendar-verycomplete">                                     <span class="calendar-color-w2">  '  </span> <span class="calendar-color-g">..''''</span>  <span class="calendar-day"> 2</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <span aria-hidden="true" class="calendar-day3">                                      ..  :        <span class="calendar-day"> 3</span></span>
 //! <span aria-hidden="true" class="calendar-day4">                                                   <span class="calendar-day"> 4</span></span>
 //! <span aria-hidden="true" class="calendar-day5">                                                   <span class="calendar-day"> 5</span></span>
 //! <span aria-hidden="true" class="calendar-day6">                                                   <span class="calendar-day"> 6</span></span>
