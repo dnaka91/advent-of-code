@@ -35,10 +35,13 @@
 //!
 //! .calendar .calendar-streets {color:#666666;}
 //! .calendar a.calendar-complete     .calendar-window-normal { color:#cccccc; text-shadow:0 0 5px rgba(255,255,255,.33); }
+//! .calendar a.calendar-verycomplete .calendar-window-red    { color:#ff0000; text-shadow:0 0 5px #ff0000; }
+//! .calendar a.calendar-verycomplete .calendar-window-dark   { color:#333333; }
+//! .calendar a.calendar-verycomplete .calendar-window-green  { color:#009900; text-shadow:0 0 5px #009900; }
 //! </style>
 //!
 //! <pre class="calendar">
-//! <a aria-label="Day 25" href="d25/index.html" class="calendar-day25">                    *
+//! <a href="d25/index.html" class="calendar-day25">                    *
 //!                     |
 //!                   +-|---+
 //!                  /  |  /|
@@ -64,10 +67,10 @@
 //! <a href="d07/index.html" class="calendar-day7"> || |:::::::::::|   |  //| ||  / / / ||      ||    <span class="calendar-day"> 7</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! <a href="d06/index.html" class="calendar-day6"> || |:::::::::::|   | //|  || /   /  ||      ||    <span class="calendar-day"> 6</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! <a href="d05/index.html" class="calendar-day5">    |:::::::::::|   |//|     / / /                 <span class="calendar-day"> 5</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d04/index.html" class="calendar-day4">    |:::::::::::|   //|     /   /   ____________   <span class="calendar-day"> 4</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d03/index.html" class="calendar-day3">    |:::::::::::|  //|     / / /___/ /#/ /#/#/ /   <span class="calendar-day"> 3</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d02/index.html" class="calendar-day2">    |:::::::::::| //|     /    ___            /    <span class="calendar-day"> 2</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d01/index.html" class="calendar-day1 calendar-complete">    |<span class="calendar-window-normal">:::::::::::</span>|//|     / / /   /_/_/_/#/#/#/     <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d04/index.html" class="calendar-day4 calendar-verycomplete">    |<span class="calendar-window-dark">::::</span><span class="calendar-window-red">:</span><span class="calendar-window-dark">:</span><span class="calendar-window-red">:</span><span class="calendar-window-dark">::::</span>|   //|     /   /   ____________   <span class="calendar-day"> 4</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d03/index.html" class="calendar-day3 calendar-verycomplete">    |<span class="calendar-window-dark">::::</span><span class="calendar-window-red">:::</span><span class="calendar-window-dark">:</span><span class="calendar-window-green">:::</span>|  //|     / / /___/ /#/ /#/#/ /   <span class="calendar-day"> 3</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d02/index.html" class="calendar-day2 calendar-verycomplete">    |<span class="calendar-window-dark">::::</span><span class="calendar-window-red">:</span><span class="calendar-window-dark">:</span><span class="calendar-window-red">:</span><span class="calendar-window-dark">:</span><span class="calendar-window-green">:</span><span class="calendar-window-dark">:</span><span class="calendar-window-green">:</span>| //|     /    ___            /    <span class="calendar-day"> 2</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete">    |<span class="calendar-window-dark">::::::::</span><span class="calendar-window-green">:::</span>|//|     / / /   /_/_/_/#/#/#/     <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! <span class="calendar-streets">  ==============//======+...+====================
 //!   - - - - - - -// - - -/   / - - - - - - - - - -
 //! ==============//|==============================
