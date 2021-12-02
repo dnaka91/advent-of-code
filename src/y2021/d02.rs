@@ -153,11 +153,26 @@ enum Command {
 
 #[cfg(test)]
 mod tests {
+    use indoc::indoc;
+
     use super::*;
 
-    #[test]
-    fn part_one() {}
+    const INPUT: &str = indoc! {"
+        forward 5
+        down 5
+        forward 8
+        up 3
+        down 8
+        forward 2
+    "};
 
     #[test]
-    fn part_two() {}
+    fn part_one() {
+        assert_eq!(150, solve_part_one(INPUT).unwrap());
+    }
+
+    #[test]
+    fn part_two() {
+        assert_eq!(900, solve_part_two(INPUT).unwrap());
+    }
 }
