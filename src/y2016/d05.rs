@@ -29,17 +29,102 @@
 //! [hacking movies]: https://en.wikipedia.org/wiki/Hackers_(film)
 //! [MD5]: https://en.wikipedia.org/wiki/MD5
 //! [hexadecimal]: https://en.wikipedia.org/wiki/Hexadecimal
+//!
+//! ## Part Two
+//!
+//! As the door slides open, you are presented with a second door that uses a slightly more inspired
+//! security mechanism. Clearly unimpressed by the last version (in what movie is the password
+//! decrypted **in order**?!), the Easter Bunny engineers have worked out [a better solution].
+//!
+//! Instead of simply filling in the password from left to right, the hash now also indicates the
+//! **position** within the password to fill. You still look for hashes that begin with five zeroes;
+//! however, now, the **sixth** character represents the **position** (`0`-`7`), and the **seventh**
+//! character is the character to put in that position.
+//!
+//! A hash result of `000001f` means that `f` is the **second** character in the password. Use only
+//! the **first result** for each position, and ignore invalid positions.
+//!
+//! For example, if the Door ID is `abc`:
+//!
+//! - The first interesting hash is from `abc3231929`, which produces `0000015...`; so, `5` goes in
+//!   position `1`: `_5______`.
+//! - In the previous method, `5017308` produced an interesting hash; however, it is ignored,
+//!   because it specifies an invalid position (`8`).
+//! - The second interesting hash is at index `5357525`, which produces `000004e...`; so, `e` goes
+//!   in position `4`: `_5__e___`.
+//!
+//! You almost choke on your popcorn as the final character falls into place, producing the password
+//! `05ace8e3`.
+//!
+//! Given the actual Door ID and this new method, **what is the password**? Be extra proud of your
+//! solution if it uses a cinematic "decrypting" animation.
+//!
+//! [a better solution]: https://www.youtube.com/watch?v=NHWjlCaIrQo&t=25
 
-use anyhow::Result;
+use anyhow::{bail, Context, Result};
+use md5::{Digest, Md5};
+use rayon::prelude::*;
 
 pub const INPUT: &str = include_str!("d05.txt");
 
-pub fn solve_part_one(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_one(input: &str) -> Result<String> {
+    let door_id = parse_input(input)?;
+
+    Ok((0..u32::MAX)
+        .into_iter()
+        .filter_map(|counter| {
+            let mut hasher = Md5::default();
+            hasher.update(door_id.as_bytes());
+            hasher.update(&counter.to_string());
+
+            hasher
+                .finalize()
+                .strip_prefix(&[0, 0])
+                .and_then(|h| h.get(0))
+                .copied()
+                .filter(|b| b & 0xF0 == 0)
+                .and_then(|b| char::from_digit(b as u32, 16))
+        })
+        .take(8)
+        .collect())
 }
 
-pub fn solve_part_two(input: &str) -> Result<i64> {
-    Ok(0)
+pub fn solve_part_two(input: &str) -> Result<String> {
+    let door_id = parse_input(input)?;
+    let mut password = [' '; 8];
+
+    let hashes = (0..u32::MAX).into_iter().filter_map(|counter| {
+        let mut hasher = Md5::default();
+        hasher.update(door_id.as_bytes());
+        hasher.update(&counter.to_string());
+
+        hasher
+            .finalize()
+            .strip_prefix(&[0, 0])
+            .and_then(|h| h.get(0).copied().zip(h.get(1).copied()))
+            .filter(|(pos, _)| *pos < 8)
+            .and_then(|(pos, val)| {
+                char::from_digit((val >> 4) as u32, 16).map(|val| (pos as usize, val))
+            })
+    });
+
+    for (position, value) in hashes {
+        if password[position] != ' ' {
+            continue;
+        }
+
+        password[position] = value;
+
+        if password.iter().all(|&c| c != ' ') {
+            return Ok(password.iter().collect());
+        }
+    }
+
+    bail!("no password found for the given door ID")
+}
+
+fn parse_input(input: &str) -> Result<&str> {
+    input.lines().next().context("input is empty")
 }
 
 #[cfg(test)]
@@ -47,8 +132,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn part_one() {}
+    fn part_one() {
+        assert_eq!("18f47a30", solve_part_one("abc").unwrap());
+    }
 
     #[test]
-    fn part_two() {}
+    fn part_two() {
+        assert_eq!("05ace8e3", solve_part_two("abc").unwrap());
+    }
 }
