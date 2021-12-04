@@ -91,6 +91,8 @@
 //! Given that exactly one program is the wrong weight, **what would its weight need to be** to
 //! balance the entire tower?
 
+#![allow(clippy::manual_split_once)]
+
 use std::collections::HashMap;
 
 use anyhow::Result;
