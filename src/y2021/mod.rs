@@ -34,19 +34,23 @@
 //! .calendar a.calendar-verycomplete .calendar-mark-verycomplete { visibility: visible; color: #ffff66; }
 //!
 //! .calendar .calendar-color-g { color:#a47a4d; }
+//! .calendar .calendar-color-o { color:#c74c30; }
+//! .calendar .calendar-color-r { color:#ff0000; }
+//! .calendar .calendar-color-s { color:#ffffff; }
 //! .calendar .calendar-color-w1 { color:#00c8ff; }
 //! .calendar .calendar-color-w2 { color:#00b5ed; }
 //! .calendar .calendar-color-w3 { color:#00a2db; }
 //! .calendar .calendar-color-w4 { color:#0091cc; }
+//! .calendar .calendar-color-w5 { color:#0085c0; }
 //! </style>
 //!
 //! <pre class="calendar">
-//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete">           ~  <span class="calendar-color-w1">~</span> ~<span class="calendar-color-w1">~</span> <span class="calendar-color-w1">~</span>~<span class="calendar-color-w1">~~</span>~<span class="calendar-color-w1">~~~~~~~~~~~~~~~~~~~~~~~~~</span>  <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d02/index.html" class="calendar-day2 calendar-verycomplete">                   ' .      '<span class="calendar-color-w2">  .</span> . <span class="calendar-color-w2">    . .</span> <span class="calendar-color-g">..''''</span>  <span class="calendar-day"> 2</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d03/index.html" class="calendar-day3 calendar-verycomplete">                        . ' . <span class="calendar-color-w3"> </span> . <span class="calendar-color-w3">  .. . </span> <span class="calendar-color-g">:</span>        <span class="calendar-day"> 3</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <a href="d04/index.html" class="calendar-day4 calendar-verycomplete">                       ...   '~ .' <span class="calendar-color-w4">  </span> <span class="calendar-color-g">....'</span>        <span class="calendar-day"> 4</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
-//! <span class="calendar-day5">                              ..|\..''             <span class="calendar-day"> 5</span></span>
-//! <span class="calendar-day6">                                                   <span class="calendar-day"> 6</span></span>
+//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete"> ~  ~  ~ ~~<span class="calendar-color-w1">~</span>~~<span class="calendar-color-w1">~</span>~<span class="calendar-color-w1">~~</span>~<span class="calendar-color-w1">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>  <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d02/index.html" class="calendar-day2 calendar-verycomplete">      .     ..  . .<span class="calendar-color-w2">  ''   '  .~ </span> <span class="calendar-color-s">.</span> <span class="calendar-color-w2">       </span> <span class="calendar-color-g">..''''</span>  <span class="calendar-day"> 2</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d03/index.html" class="calendar-day3 calendar-verycomplete">           . ..    . <span class="calendar-color-w3"> .   .    </span> <span class="calendar-color-s">.</span> <span class="calendar-color-w3">    .~ </span> <span class="calendar-color-g">:</span>        <span class="calendar-day"> 3</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d04/index.html" class="calendar-day4 calendar-verycomplete">            .    .     <span class="calendar-color-w4">  '.  ' </span> <span class="calendar-color-s">.'</span> <span class="calendar-color-w4"> .</span> <span class="calendar-color-g">....'</span>        <span class="calendar-day"> 4</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <a href="d05/index.html" class="calendar-day5 calendar-verycomplete">              .        . <span class="calendar-color-w5">    </span> <span class="calendar-color-o">.</span><span class="calendar-color-r">.</span><span class="calendar-color-s">|\</span><span class="calendar-color-r">.</span><span class="calendar-color-o">.</span><span class="calendar-color-g">''</span>             <span class="calendar-day"> 5</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
+//! <span class="calendar-day6">                   '.   '.   :                     <span class="calendar-day"> 6</span></span>
 //! <span class="calendar-day7">                                                   <span class="calendar-day"> 7</span></span>
 //! <span class="calendar-day8">                                                   <span class="calendar-day"> 8</span></span>
 //! <span class="calendar-day9">                                                   <span class="calendar-day"> 9</span></span>
