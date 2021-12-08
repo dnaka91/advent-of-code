@@ -1,9 +1,12 @@
 # Advent of Code
 
 [![Build Status][build-img]][build-url]
+[![Documentation][doc-img]][doc-url]
 
-[build-img]: https://github.com/dnaka91/advent-of-code-rs/workflows/CI/badge.svg?branch=main
-[build-url]: https://github.com/dnaka91/advent-of-code-rs/actions?query=workflow%3ACI
+[build-img]: https://img.shields.io/github/workflow/status/dnaka91/advent-of-code/CI/main?style=for-the-badge
+[build-url]: https://github.com/dnaka91/advent-of-code/actions?query=workflow%3ACI
+[doc-img]: https://img.shields.io/badge/docs.rs-aoc-4d76ae?style=for-the-badge
+[doc-url]: https://dnaka91.github.io/advent-of-code/aoc/index.html
 
 The [Advent of Code] solved in 🦀 Rust.
 
