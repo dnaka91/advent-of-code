@@ -11,7 +11,7 @@ COPY Cargo.lock Cargo.toml ./
 RUN cargo build --release && \
     strip --strip-all target/release/aoc
 
-FROM alpine:3.14 as newuser
+FROM alpine:3.15 as newuser
 
 RUN echo "aoc:x:1000:" > /tmp/group && \
     echo "aoc:x:1000:1000::/dev/null:/sbin/nologin" > /tmp/passwd
