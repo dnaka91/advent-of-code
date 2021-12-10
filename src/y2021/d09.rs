@@ -130,8 +130,6 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
             acc
         });
 
-    dbg!(&basins);
-
     Ok(basins[1] * basins[2] * basins[3])
 }
 
