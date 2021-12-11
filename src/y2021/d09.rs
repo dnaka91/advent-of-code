@@ -96,9 +96,8 @@
 //!
 //! **What do you get if you multiply together the sizes of the three largest basins?**
 
+use ahash::AHashSet;
 use anyhow::{ensure, Result};
-use fnv::FnvHashSet;
-use rayon::prelude::*;
 
 pub const INPUT: &str = include_str!("d09.txt");
 
@@ -112,7 +111,7 @@ pub fn solve_part_one(input: &str) -> Result<u32> {
 
 pub fn solve_part_two(input: &str) -> Result<u32> {
     let (width, field) = parse_input(input)?;
-    let mut seen = FnvHashSet::default();
+    let mut seen = AHashSet::new();
 
     let basins = (0..field.len())
         .map(|i| {
@@ -164,7 +163,7 @@ fn is_low_point(width: usize, field: &[u8], i: usize) -> bool {
     top && bottom && left && right
 }
 
-fn check_basin(width: usize, field: &[u8], i: usize, seen: &mut FnvHashSet<usize>) -> u32 {
+fn check_basin(width: usize, field: &[u8], i: usize, seen: &mut AHashSet<usize>) -> u32 {
     let point = field[i];
     let mut count = 1;
 

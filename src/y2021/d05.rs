@@ -90,16 +90,16 @@
 //!
 //! Consider all of the lines. **At how many points do at least two lines overlap?**
 
-use std::mem;
+use std::{collections::HashMap, mem};
 
+use ahash::AHashMap;
 use anyhow::{Context, Result};
-use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d05.txt");
 
 pub fn solve_part_one(input: &str) -> Result<usize> {
     let lines = parse_input(input)?;
-    let mut grid = FnvHashMap::default();
+    let mut grid = AHashMap::new();
 
     for line in lines {
         if line.start.0 == line.end.0 {
@@ -109,12 +109,13 @@ pub fn solve_part_one(input: &str) -> Result<usize> {
         }
     }
 
+    let grid: HashMap<_, _, _> = grid.into();
     Ok(grid.into_values().filter(|&v| v >= 2).count())
 }
 
 pub fn solve_part_two(input: &str) -> Result<usize> {
     let lines = parse_input(input)?;
-    let mut grid = FnvHashMap::default();
+    let mut grid = AHashMap::new();
 
     for line in lines {
         if line.start.0 == line.end.0 {
@@ -126,6 +127,7 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
         }
     }
 
+    let grid: HashMap<_, _, _> = grid.into();
     Ok(grid.into_values().filter(|&v| v >= 2).count())
 }
 
@@ -150,7 +152,7 @@ struct Line {
     end: Point,
 }
 
-fn walk_horizontal(grid: &mut FnvHashMap<Point, u32>, mut line: Line) {
+fn walk_horizontal(grid: &mut AHashMap<Point, u32>, mut line: Line) {
     if line.start.1 > line.end.1 {
         mem::swap(&mut line.start, &mut line.end);
     }
@@ -160,7 +162,7 @@ fn walk_horizontal(grid: &mut FnvHashMap<Point, u32>, mut line: Line) {
     }
 }
 
-fn walk_vertical(grid: &mut FnvHashMap<Point, u32>, mut line: Line) {
+fn walk_vertical(grid: &mut AHashMap<Point, u32>, mut line: Line) {
     if line.start.0 > line.end.0 {
         mem::swap(&mut line.start, &mut line.end);
     }
@@ -170,7 +172,7 @@ fn walk_vertical(grid: &mut FnvHashMap<Point, u32>, mut line: Line) {
     }
 }
 
-fn walk_diagonal(grid: &mut FnvHashMap<Point, u32>, line: Line) {
+fn walk_diagonal(grid: &mut AHashMap<Point, u32>, line: Line) {
     let diff_x = line.start.0 - line.end.0;
     let diff_y = line.start.1 - line.end.1;
 

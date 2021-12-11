@@ -85,7 +85,6 @@
 //! **How many lanternfish would there be after 256 days?**
 
 use anyhow::{ensure, Context, Result};
-use fnv::FnvHashMap;
 use rayon::prelude::*;
 
 pub const INPUT: &str = include_str!("d06.txt");
