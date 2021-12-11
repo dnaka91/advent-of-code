@@ -6,6 +6,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
+ahash = "0.7.6"
 anyhow = "1.0.51"
 fnv = "1.0.7"
 hex = "0.4.3"
