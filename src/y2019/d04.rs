@@ -36,8 +36,7 @@
 //! **How many different passwords** within the range given in your puzzle input meet all of the
 //! criteria?
 
-use anyhow::ensure;
-use anyhow::Result;
+use anyhow::{ensure, Result};
 use itertools::Itertools;
 
 pub const INPUT: &str = include_str!("d04.txt");

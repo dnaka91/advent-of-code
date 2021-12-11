@@ -42,9 +42,7 @@
 //! the above instructions, the highest value ever held was `10` (in register `c` after the third
 //! instruction was evaluated).
 
-use std::cmp;
-use std::collections::BTreeMap;
-use std::str::FromStr;
+use std::{cmp, collections::BTreeMap, str::FromStr};
 
 use anyhow::{bail, ensure, Result};
 

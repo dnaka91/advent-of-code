@@ -73,9 +73,9 @@
 //! [Manhattan distance]: https://en.wikipedia.org/wiki/Taxicab_geometry
 //! [integer]: https://en.wikipedia.org/wiki/Integer
 
+use std::{ops::Sub, str::FromStr};
+
 use anyhow::{anyhow, Context, Error, Result};
-use std::ops::Sub;
-use std::str::FromStr;
 
 pub const INPUT: &str = include_str!("d06.txt");
 

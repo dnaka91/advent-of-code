@@ -34,8 +34,7 @@
 //!
 //! Under this new system policy, **how many passphrases are valid?**
 
-use std::collections::HashSet;
-use std::iter::FromIterator;
+use std::{collections::HashSet, iter::FromIterator};
 
 use anyhow::Result;
 use itertools::Itertools;

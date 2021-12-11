@@ -264,8 +264,10 @@
 //! Given the new visibility method and the rule change for occupied seats becoming empty, once
 //! equilibrium is reached, **how many seats end up occupied?**
 
-use std::mem;
-use std::ops::{Index, IndexMut};
+use std::{
+    mem,
+    ops::{Index, IndexMut},
+};
 
 use anyhow::Result;
 

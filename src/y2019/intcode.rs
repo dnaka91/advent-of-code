@@ -5,9 +5,11 @@
 //! [7]: crate::y2019::d07
 //! [9]: crate::y2019::d09
 
-use std::collections::VecDeque;
-use std::convert::{TryFrom, TryInto};
-use std::iter::FromIterator;
+use std::{
+    collections::VecDeque,
+    convert::{TryFrom, TryInto},
+    iter::FromIterator,
+};
 
 use anyhow::{bail, Error, Result};
 use thiserror::Error;
@@ -283,8 +285,9 @@ fn parse_opcode(opcode: i64) -> Result<(Opcode, Mode, Mode, Mode)> {
 
 #[cfg(test)]
 pub(crate) mod tests {
-    use super::*;
     use itertools::Itertools;
+
+    use super::*;
 
     /// Turn a slice of integers back into a comma separated string. For testing purposes.
     pub fn input_to_string(input: &[i64]) -> String {

@@ -434,9 +434,11 @@
 //! Starting with your given initial configuration, simulate six cycles in a 4-dimensional space.
 //! **How many cubes are left in the active state after the sixth cycle?**
 
-use std::hash::Hash;
-use std::iter;
-use std::ops::{Index, IndexMut};
+use std::{
+    hash::Hash,
+    iter,
+    ops::{Index, IndexMut},
+};
 
 use anyhow::Result;
 use fnv::FnvHashMap;

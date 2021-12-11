@@ -96,8 +96,7 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
 
 #[cfg(test)]
 mod tests {
-    use super::super::intcode::tests::input_to_string;
-    use super::*;
+    use super::{super::intcode::tests::input_to_string, *};
 
     #[test]
     fn part_one() {

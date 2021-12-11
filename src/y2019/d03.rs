@@ -103,12 +103,9 @@
 //!
 //! **What is the fewest combined steps the wires must take to reach an intersection?**
 
-use std::collections::HashSet;
-use std::hash::Hash;
-use std::str::FromStr;
+use std::{collections::HashSet, hash::Hash, str::FromStr};
 
-use anyhow::Result;
-use anyhow::{bail, ensure};
+use anyhow::{bail, ensure, Result};
 
 pub const INPUT: &str = include_str!("d03.txt");
 

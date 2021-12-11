@@ -38,8 +38,7 @@
 //! - `^v^v^v^v^v` now delivers presents to `11` houses, with Santa going one direction and
 //!   Robo-Santa going the other.
 
-use std::collections::HashSet;
-use std::convert::TryFrom;
+use std::{collections::HashSet, convert::TryFrom};
 
 use anyhow::{bail, Result};
 
