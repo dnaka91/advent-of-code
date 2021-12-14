@@ -178,6 +178,7 @@ pub fn solve_part_two(input: &str) -> Result<String> {
     Ok(render(coordinates))
 }
 
+#[allow(clippy::type_complexity)]
 fn parse_input(input: &str) -> Result<(AHashSet<(u16, u16)>, Vec<Fold>)> {
     let (coordinates, folds) =
         input.split_once("\n\n").context("missing coordinates and folds separator")?;
