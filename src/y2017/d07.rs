@@ -131,8 +131,8 @@ fn parse_input_one(input: &str) -> Result<HashMap<&str, &str>> {
     Ok(input
         .lines()
         .flat_map(|l| {
-            let node = l.splitn(2, " (").next().unwrap();
-            let children = l.rsplitn(2, " -> ").next().unwrap().split(", ");
+            let node = l.split(" (").next().unwrap();
+            let children = l.rsplit(" -> ").next().unwrap().split(", ");
 
             children.map(move |c| (c, node))
         })
@@ -143,12 +143,10 @@ fn parse_input_two(input: &str) -> Result<HashMap<&str, (u32, Vec<&str>)>> {
     input
         .lines()
         .map(|l| {
-            let mut parts = l.splitn(2, " (");
-            let node = parts.next().unwrap();
-            let weight = parts.next().unwrap();
+            let (node, weight) = l.split_once(" (").unwrap();
             let weight = weight[..weight.find(')').unwrap()].parse().unwrap();
 
-            let children = l.rsplitn(2, " -> ").next().unwrap().split(", ").collect();
+            let children = l.rsplit(" -> ").next().unwrap().split(", ").collect();
 
             Ok((node, (weight, children)))
         })
