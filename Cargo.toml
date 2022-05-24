@@ -7,19 +7,19 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 ahash = "0.7.6"
-anyhow = "1.0.56"
+anyhow = "1.0.57"
 fnv = "1.0.7"
 hex = "0.4.3"
 itertools = "0.10.3"
 maplit = "1.0.2"
 md-5 = "0.10.1"
-num-integer = "0.1.44"
-rayon = "1.5.1"
-thiserror = "1.0.30"
+num-integer = "0.1.45"
+rayon = "1.5.3"
+thiserror = "1.0.31"
 
 [dev-dependencies]
 criterion = "0.3.5"
-indoc = "1.0.4"
+indoc = "1.0.6"
 
 [[bench]]
 name = "year2021"
