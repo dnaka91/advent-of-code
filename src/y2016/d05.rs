@@ -80,7 +80,7 @@ pub fn solve_part_one(input: &str) -> Result<String> {
             hasher
                 .finalize()
                 .strip_prefix(&[0, 0])
-                .and_then(|h| h.get(0))
+                .and_then(|h| h.first())
                 .copied()
                 .filter(|b| b & 0xF0 == 0)
                 .and_then(|b| char::from_digit(b as u32, 16))
@@ -101,7 +101,7 @@ pub fn solve_part_two(input: &str) -> Result<String> {
         hasher
             .finalize()
             .strip_prefix(&[0, 0])
-            .and_then(|h| h.get(0).copied().zip(h.get(1).copied()))
+            .and_then(|h| h.first().copied().zip(h.get(1).copied()))
             .filter(|(pos, _)| *pos < 8)
             .and_then(|(pos, val)| {
                 char::from_digit((val >> 4) as u32, 16).map(|val| (pos as usize, val))

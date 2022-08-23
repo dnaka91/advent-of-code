@@ -128,7 +128,7 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
     Ok(parse_input(input)
         .into_iter()
         .map(|g| {
-            let base = g.get(0).map(|s| s.chars().collect::<FnvHashSet<_>>()).unwrap_or_default();
+            let base = g.first().map(|s| s.chars().collect::<FnvHashSet<_>>()).unwrap_or_default();
             g.into_iter()
                 .skip(1)
                 .fold(base, |mut h, a| {
