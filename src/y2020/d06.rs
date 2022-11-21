@@ -105,8 +105,8 @@
 //! For each group, count the number of questions to which **everyone** answered "yes". **What is
 //! the sum of those counts?**
 
+use ahash::AHashSet;
 use anyhow::Result;
-use fnv::FnvHashSet;
 
 pub const INPUT: &str = include_str!("d06.txt");
 
@@ -115,7 +115,7 @@ pub fn solve_part_one(input: &str) -> Result<usize> {
         .into_iter()
         .map(|g| {
             g.into_iter()
-                .fold(FnvHashSet::default(), |mut h, a| {
+                .fold(AHashSet::default(), |mut h, a| {
                     h.extend(a.chars());
                     h
                 })
@@ -128,7 +128,7 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
     Ok(parse_input(input)
         .into_iter()
         .map(|g| {
-            let base = g.first().map(|s| s.chars().collect::<FnvHashSet<_>>()).unwrap_or_default();
+            let base = g.first().map(|s| s.chars().collect::<AHashSet<_>>()).unwrap_or_default();
             g.into_iter()
                 .skip(1)
                 .fold(base, |mut h, a| {

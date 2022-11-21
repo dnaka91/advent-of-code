@@ -164,10 +164,7 @@ fn parse_input(input: &str) -> Result<(Vec<u16>, usize)> {
 fn bit_count(numbers: &[u16], bits: usize, pos: usize) -> u32 {
     let shift = bits - pos;
 
-    numbers
-        .iter()
-        .copied()
-        .fold(0, |count, num| count + u32::from(((num >> shift) & 1) == 1))
+    numbers.iter().copied().fold(0, |count, num| count + u32::from(((num >> shift) & 1) == 1))
 }
 
 fn find_rating(mut numbers: Vec<u16>, bits: usize, most: u16, least: u16) -> u16 {

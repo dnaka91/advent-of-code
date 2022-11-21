@@ -69,8 +69,8 @@
 //!
 //! Given your starting numbers, **what will be the `30000000`th number spoken?**
 
+use ahash::AHashMap;
 use anyhow::{Context, Result};
-use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d15.txt");
 
@@ -93,7 +93,7 @@ fn parse_input(input: &str) -> Result<Vec<u32>> {
 }
 
 fn solve(input: Vec<u32>, final_turn: u32) -> u32 {
-    let mut memory = FnvHashMap::default();
+    let mut memory = AHashMap::default();
     let mut turn = 1;
     let mut last_number = 0;
 

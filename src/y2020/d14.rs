@@ -148,14 +148,14 @@
 //!
 //! [memory address decoder]: https://www.youtube.com/watch?v=PvfhANgLrm4
 
+use ahash::AHashMap;
 use anyhow::{anyhow, bail, Context, Result};
-use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d14.txt");
 
 pub fn solve_part_one(input: &str) -> Result<u64> {
     let input = parse_input(input)?;
-    let mut memory = FnvHashMap::default();
+    let mut memory = AHashMap::default();
 
     for InstructionSet { mask, assignments } in input {
         for (address, value) in assignments {
@@ -175,7 +175,7 @@ pub fn solve_part_one(input: &str) -> Result<u64> {
 
 pub fn solve_part_two(input: &str) -> Result<u64> {
     let input = parse_input(input)?;
-    let mut memory = FnvHashMap::default();
+    let mut memory = AHashMap::default();
 
     for InstructionSet { mask, assignments } in input {
         for (address, value) in assignments {

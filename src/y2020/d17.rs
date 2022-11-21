@@ -440,8 +440,8 @@ use std::{
     ops::{Index, IndexMut},
 };
 
+use ahash::AHashMap;
 use anyhow::Result;
-use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d17.txt");
 
@@ -453,7 +453,7 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
     solve::<PosGen4>(input)
 }
 
-fn parse_input<T>(input: &str) -> FnvHashMap<T, bool>
+fn parse_input<T>(input: &str) -> AHashMap<T, bool>
 where
     T: From<(i16, i16)> + Eq + Hash,
 {
@@ -633,7 +633,7 @@ impl From<(i16, i16)> for PosGen4 {
     }
 }
 
-fn count_active<T>(coords: &FnvHashMap<T, bool>, pos: T) -> u8
+fn count_active<T>(coords: &AHashMap<T, bool>, pos: T) -> u8
 where
     T: Eq + Copy + Hash + Iter,
 {
@@ -652,7 +652,7 @@ where
     count
 }
 
-fn bounding_box<T>(coords: &FnvHashMap<T, bool>) -> (T, T)
+fn bounding_box<T>(coords: &AHashMap<T, bool>) -> (T, T)
 where
     T: Bounds + Length + Index<usize, Output = i16> + IndexMut<usize>,
 {
@@ -669,7 +669,7 @@ where
     (min, max)
 }
 
-fn expand<T>(coords: &mut FnvHashMap<T, bool>, mut min: T, mut max: T)
+fn expand<T>(coords: &mut AHashMap<T, bool>, mut min: T, mut max: T)
 where
     T: Length + IndexMut<usize, Output = i16> + Iter + Hash + Eq,
 {

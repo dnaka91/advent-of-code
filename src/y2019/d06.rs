@@ -136,14 +136,14 @@
 //! orbiting to the object `SAN` is orbiting? (Between the objects they are orbiting - **not**
 //! between `YOU` and `SAN`.)
 
+use ahash::AHashMap;
 use anyhow::{Context, Result};
-use fnv::FnvHashMap;
 
 pub const INPUT: &str = include_str!("d06.txt");
 
 pub fn solve_part_one(input: &str) -> Result<i64> {
     let map = parse_input(input);
-    let mut counts = FnvHashMap::with_capacity_and_hasher(map.len(), Default::default());
+    let mut counts = AHashMap::with_capacity(map.len());
 
     let mut total = 0;
     for key in map.keys() {
@@ -189,7 +189,7 @@ pub fn solve_part_two(input: &str) -> Result<i64> {
     }
 }
 
-fn parse_input(input: &str) -> FnvHashMap<&str, &str> {
+fn parse_input(input: &str) -> AHashMap<&str, &str> {
     input
         .lines()
         .map(|l| {

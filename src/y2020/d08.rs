@@ -122,8 +122,8 @@
 //! Fix the program so that it terminates normally by changing exactly one `jmp` (to `nop`) or `nop`
 //! (to `jmp`). **What is the value of the accumulator after the program terminates?**
 
+use ahash::AHashSet;
 use anyhow::{bail, Context, Result};
-use fnv::FnvHashSet;
 
 pub const INPUT: &str = include_str!("d08.txt");
 
@@ -131,7 +131,7 @@ pub fn solve_part_one(input: &str) -> Result<i32> {
     let instructions = parse_input(input)?;
     let mut pos = 0;
     let mut acc = 0;
-    let mut indexes = FnvHashSet::default();
+    let mut indexes = AHashSet::default();
 
     loop {
         if pos >= instructions.len() {
@@ -163,7 +163,7 @@ pub fn solve_part_two(input: &str) -> Result<i32> {
     let run = |inst: &[(&str, i32)]| {
         let mut pos = 0;
         let mut acc = 0;
-        let mut indexes = FnvHashSet::default();
+        let mut indexes = AHashSet::default();
 
         loop {
             if pos >= inst.len() {
