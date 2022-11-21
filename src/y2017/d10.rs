@@ -162,7 +162,7 @@ pub fn solve_part_one(input: &str) -> Result<u32> {
 
 pub fn solve_part_two(input: &str) -> Result<String> {
     let mut lengths = parse_input_two(input)?;
-    lengths.extend(&[17, 31, 73, 47, 23]);
+    lengths.extend([17, 31, 73, 47, 23]);
 
     let mut pos = 0;
     let mut skip = 0;

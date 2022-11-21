@@ -66,7 +66,7 @@ pub fn solve_part_one(input: &str) -> Result<u32> {
 
             let checksum = chars.into_iter().map(|(c, _)| c).take(5).collect::<String>();
 
-            (checksum == room.checksum).then(|| room.sector)
+            (checksum == room.checksum).then_some(room.sector)
         })
         .sum())
 }

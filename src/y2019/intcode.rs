@@ -201,13 +201,13 @@ impl Program {
                 Opcode::LessThan => {
                     let x = self.get_value(1, mode1);
                     let y = self.get_value(2, mode2);
-                    self.set_value(3, mode3, if x < y { 1 } else { 0 });
+                    self.set_value(3, mode3, i64::from(x < y));
                     self.pos += opcode.len();
                 }
                 Opcode::Equals => {
                     let x = self.get_value(1, mode1);
                     let y = self.get_value(2, mode2);
-                    self.set_value(3, mode3, if x == y { 1 } else { 0 });
+                    self.set_value(3, mode3, i64::from(x == y));
                     self.pos += opcode.len();
                 }
                 Opcode::AdjustBase => {

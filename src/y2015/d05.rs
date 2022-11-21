@@ -50,11 +50,7 @@ pub fn solve_part_one(input: &str) -> Result<usize> {
                 Some(c)
             });
 
-            if vowels >= 3 && double && !bad {
-                1
-            } else {
-                0
-            }
+            usize::from(vowels >= 3 && double && !bad)
         })
         .sum())
 }

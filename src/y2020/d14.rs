@@ -189,7 +189,7 @@ pub fn solve_part_two(input: &str) -> Result<u64> {
 
             for (pos, _) in mask.iter().copied().filter(|(_, bit)| *bit == Bit::Floating) {
                 for i in 0..addresses.len() {
-                    addresses.extend(&[addresses[i] | (1 << pos), addresses[i] & !(1 << pos)]);
+                    addresses.extend([addresses[i] | (1 << pos), addresses[i] & !(1 << pos)]);
                 }
             }
 

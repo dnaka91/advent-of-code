@@ -402,7 +402,7 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
                 (0..levels.len()).map(|i| bubble(&mut levels, i, &mut flashed)).sum::<u32>();
             (step, flashes)
         })
-        .find_map(|(step, flashes)| (flashes == 100).then(|| step + 1))
+        .find_map(|(step, flashes)| (flashes == 100).then_some(step + 1))
         .context("no simultaneous flash found")
 }
 

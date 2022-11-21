@@ -184,7 +184,7 @@ fn check_board(board: &Board) -> bool {
 }
 
 fn sum_unmarked(board: &Board) -> u32 {
-    board.iter().filter_map(|(value, marked)| (!marked).then(|| *value as u32)).sum()
+    board.iter().filter_map(|(value, marked)| (!marked).then_some(*value as u32)).sum()
 }
 
 #[cfg(test)]

@@ -124,7 +124,7 @@ pub fn solve_part_one(input: &str) -> Result<u64> {
     let count = numbers.into_iter().fold(vec![0; bits], |mut count, num| {
         (0..bits).for_each(|i| {
             let shift = bits - (i + 1);
-            count[i] += if ((num >> shift) & 1) == 1 { 1 } else { 0 };
+            count[i] += u32::from(((num >> shift) & 1) == 1);
         });
         count
     });
@@ -167,7 +167,7 @@ fn bit_count(numbers: &[u16], bits: usize, pos: usize) -> u32 {
     numbers
         .iter()
         .copied()
-        .fold(0, |count, num| count + if ((num >> shift) & 1) == 1 { 1 } else { 0 })
+        .fold(0, |count, num| count + u32::from(((num >> shift) & 1) == 1))
 }
 
 fn find_rating(mut numbers: Vec<u16>, bits: usize, most: u16, least: u16) -> u16 {
