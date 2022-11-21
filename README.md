@@ -31,3 +31,8 @@ The progress for each year is tracked in the [documentation] of this crate, cont
 Advent of Code site.
 
 [documentation]: https://dnaka91.github.io/advent-of-code/aoc/index.html
+
+## License
+
+This project is licensed under the [AGPL-3.0 License](LICENSE) (or
+<https://www.gnu.org/licenses/agpl-3.0.html>).
