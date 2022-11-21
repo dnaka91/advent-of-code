@@ -11,23 +11,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
+        uses: dtolnay/rust-toolchain@stable
       - name: Configure cache
-        uses: Swatinem/rust-cache@v1
+        uses: Swatinem/rust-cache@v2
       - name: Clean docs folder
-        uses: actions-rs/cargo@v1
-        with:
-          command: clean
-          args: --doc
+        run: cargo clean --doc
       - name: Build docs
-        uses: actions-rs/cargo@v1
-        with:
-          command: doc
-          args: --no-deps
+        run: cargo doc --no-deps
       - name: Add redirect
         run: echo '<meta http-equiv="refresh" content="0;url=aoc/index.html">' > target/doc/index.html
       - name: Deploy
