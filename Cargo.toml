@@ -6,20 +6,20 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-ahash = "0.7.6"
-anyhow = "1.0.57"
+ahash = "0.8.2"
+anyhow = "1.0.66"
 fnv = "1.0.7"
 hex = "0.4.3"
-itertools = "0.10.3"
+itertools = "0.10.5"
 maplit = "1.0.2"
-md-5 = "0.10.1"
+md-5 = "0.10.5"
 num-integer = "0.1.45"
-rayon = "1.5.3"
-thiserror = "1.0.31"
+rayon = "1.6.0"
+thiserror = "1.0.37"
 
 [dev-dependencies]
-criterion = "0.3.5"
-indoc = "1.0.6"
+criterion = "0.4.0"
+indoc = "1.0.7"
 
 [[bench]]
 name = "year2021"
