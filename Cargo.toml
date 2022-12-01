@@ -20,6 +20,9 @@ thiserror = "1.0.37"
 criterion = "0.4.0"
 indoc = "1.0.7"
 
+[profile.test]
+opt-level = 2
+
 [[bench]]
 name = "year2022"
 harness = false
