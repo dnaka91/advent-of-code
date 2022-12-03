@@ -28,7 +28,8 @@
 //! There's only one problem: **snailfish numbers must always be reduced**, and the process of
 //! adding two snailfish numbers can result in snailfish numbers that need to be reduced.
 //!
-//! To **reduce a snailfish number**, you must repeatedly do the first action in this list that applies to the snailfish number:
+//! To **reduce a snailfish number**, you must repeatedly do the first action in this list that
+//! applies to the snailfish number:
 //!
 //! - If any pair is **nested inside four pairs**, the leftmost such pair **explodes**.
 //! - If any regular number is **10 or greater**, the leftmost such regular number **splits**.

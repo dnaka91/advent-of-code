@@ -155,7 +155,6 @@ impl Program {
     ///     Ok(())
     /// }
     /// ```
-    ///
     pub fn run(&mut self, params: &[i64]) -> Result<i64> {
         self.params.extend(params);
 

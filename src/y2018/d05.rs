@@ -20,7 +20,7 @@
 //!   nothing.
 //! - In `abAB`, no two adjacent units are of the same type, and so nothing happens.
 //! - In `aabAAB`, even though `aa` and `AA` are of the same type, their polarities match, and so
-//!    nothing happens.
+//!   nothing happens.
 //!
 //! Now, consider a larger example, `dabAcCaCBAcCcaDA`:
 //!

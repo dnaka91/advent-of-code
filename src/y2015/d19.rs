@@ -24,7 +24,8 @@
 //! O => HH
 //! ```
 //!
-//! Given the replacements above and starting with `HOH`, the following molecules could be generated:
+//! Given the replacements above and starting with `HOH`, the following molecules could be
+//! generated:
 //!
 //! - `HOOH` (via `H => HO` on the first `H`).
 //! - `HOHO` (via `H => HO` on the second `H`).

@@ -153,13 +153,16 @@ impl FromStr for Op {
 
 #[cfg(test)]
 mod tests {
+    use indoc::indoc;
+
     use super::*;
 
-    const INPUT: &str = "\
-        b inc 5 if a > 1\n\
-        a inc 1 if b < 5\n\
-        c dec -10 if a >= 1\n\
-        c inc -20 if c == 10";
+    const INPUT: &str = indoc! {"
+        b inc 5 if a > 1
+        a inc 1 if b < 5
+        c dec -10 if a >= 1
+        c inc -20 if c == 10
+    "};
 
     #[test]
     fn part_one() {

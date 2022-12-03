@@ -22,7 +22,8 @@
 //! - Due to gravity, the probe's `y` velocity decreases by `1`.
 //!
 //! For the probe to successfully make it into the trench, the probe must be on some trajectory that
-//! causes it to be within a **target area** after any step. The submarine computer has already calculated this target area (your puzzle input). For example:
+//! causes it to be within a **target area** after any step. The submarine computer has already
+//! calculated this target area (your puzzle input). For example:
 //!
 //! ```txt
 //! target area: x=20..30, y=-10..-5
