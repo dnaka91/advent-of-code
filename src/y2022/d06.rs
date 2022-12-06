@@ -78,7 +78,6 @@
 //! detected?**
 
 use anyhow::{Context, Result};
-use itertools::Itertools;
 use rayon::prelude::*;
 
 pub const INPUT: &str = include_str!("d06.txt");
@@ -92,11 +91,15 @@ pub fn solve_part_two(input: &str) -> Result<usize> {
 }
 
 fn find_marker(input: &str, size: usize) -> Option<usize> {
-    input
-        .as_bytes()
-        .par_windows(size)
-        .position_first(|window| window.iter().all_unique())
-        .map(|pos| pos + size)
+    input.as_bytes().par_windows(size).position_first(all_unique).map(|pos| pos + size)
+}
+
+fn all_unique(window: &[u8]) -> bool {
+    window
+        .iter()
+        .copied()
+        .enumerate()
+        .all(|(i, b)| window.iter().copied().skip(i + 1).all(|b2| b != b2))
 }
 
 #[cfg(test)]
