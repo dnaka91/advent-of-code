@@ -134,11 +134,13 @@
 //! Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate `C` that gets
 //! moved:
 //!
+//! ```txt
 //!         [D]
 //!         [N]
 //!         [Z]
 //! [M] [C] [P]
 //!  1   2   3
+//! ```
 //!
 //! In this example, the CrateMover 9001 has put the crates in a totally different order: **`MCD`**.
 //!
