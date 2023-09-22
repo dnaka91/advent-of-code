@@ -313,7 +313,7 @@ impl FromStr for Digit {
 
 impl Digit {
     fn contains(self, other: Self) -> bool {
-        self.0.into_iter().zip(other.0.into_iter()).all(|(a, b)| b == 0 || a == b)
+        self.0.into_iter().zip(other.0).all(|(a, b)| b == 0 || a == b)
     }
 }
 

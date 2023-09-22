@@ -496,7 +496,7 @@ where
         coordinates.clone_from(&copy);
     }
 
-    Ok(coordinates.values().into_iter().filter(|&&active| active).count())
+    Ok(coordinates.values().filter(|&&active| active).count())
 }
 
 trait Bounds {

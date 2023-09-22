@@ -416,7 +416,7 @@ fn parse_input(input: &str) -> Result<[u8; 100]> {
 
         for j in 0..10 {
             let level = line.next().context("grid line has less that 10 values")?;
-            ensure!((b'0'..=b'9').contains(level), "grid value must be between 0 and 9");
+            ensure!(level.is_ascii_digit(), "grid value must be between 0 and 9");
             values[10 * i + j] = *level - b'0';
         }
     }

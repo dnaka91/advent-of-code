@@ -55,10 +55,10 @@ pub fn solve_part_one(input: &str) -> Result<i32> {
     for (turn, steps) in instructions {
         direction = direction.turn(turn);
         position = match direction {
-            Direction::North => (position.0, position.1 - steps as i32),
-            Direction::East => (position.0 + steps as i32, position.1),
-            Direction::South => (position.0, position.1 + steps as i32),
-            Direction::West => (position.0 - steps as i32, position.1),
+            Direction::North => (position.0, position.1 - steps),
+            Direction::East => (position.0 + steps, position.1),
+            Direction::South => (position.0, position.1 + steps),
+            Direction::West => (position.0 - steps, position.1),
         }
     }
 

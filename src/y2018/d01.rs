@@ -105,18 +105,18 @@ mod tests {
 
     #[test]
     fn part_one() {
-        assert_eq!(3, solve_part_one(&vec!["+1", "-2", "+3", "+1"].join("\n")).unwrap());
-        assert_eq!(3, solve_part_one(&vec!["+1", "+1", "+1"].join("\n")).unwrap());
-        assert_eq!(0, solve_part_one(&vec!["+1", "+1", "-2"].join("\n")).unwrap());
-        assert_eq!(-6, solve_part_one(&vec!["-1", "-2", "-3"].join("\n")).unwrap());
+        assert_eq!(3, solve_part_one(&["+1", "-2", "+3", "+1"].join("\n")).unwrap());
+        assert_eq!(3, solve_part_one(&["+1", "+1", "+1"].join("\n")).unwrap());
+        assert_eq!(0, solve_part_one(&["+1", "+1", "-2"].join("\n")).unwrap());
+        assert_eq!(-6, solve_part_one(&["-1", "-2", "-3"].join("\n")).unwrap());
     }
 
     #[test]
     fn part_two() {
-        assert_eq!(2, solve_part_two(&vec!["+1", "-2", "+3", "+1"].join("\n")).unwrap());
-        assert_eq!(0, solve_part_two(&vec!["+1", "-1"].join("\n")).unwrap());
-        assert_eq!(10, solve_part_two(&vec!["+3", "+3", "+4", "-2", "-4"].join("\n")).unwrap());
-        assert_eq!(5, solve_part_two(&vec!["-6", "+3", "+8", "+5", "-6"].join("\n")).unwrap());
-        assert_eq!(14, solve_part_two(&vec!["+7", "+7", "-2", "-7", "-4"].join("\n")).unwrap());
+        assert_eq!(2, solve_part_two(&["+1", "-2", "+3", "+1"].join("\n")).unwrap());
+        assert_eq!(0, solve_part_two(&["+1", "-1"].join("\n")).unwrap());
+        assert_eq!(10, solve_part_two(&["+3", "+3", "+4", "-2", "-4"].join("\n")).unwrap());
+        assert_eq!(5, solve_part_two(&["-6", "+3", "+8", "+5", "-6"].join("\n")).unwrap());
+        assert_eq!(14, solve_part_two(&["+7", "+7", "-2", "-7", "-4"].join("\n")).unwrap());
     }
 }

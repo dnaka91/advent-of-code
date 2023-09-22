@@ -282,7 +282,7 @@ fn parse_input(input: &str) -> Result<(Vec<u8>, usize)> {
         .lines()
         .flat_map(|line| {
             line.bytes().map(|n| {
-                ensure!((b'0'..=b'9').contains(&n), "invalid height {n}");
+                ensure!(n.is_ascii_digit(), "invalid height {n}");
                 Ok(n - b'0')
             })
         })

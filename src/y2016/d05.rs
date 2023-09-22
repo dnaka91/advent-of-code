@@ -71,7 +71,6 @@ pub fn solve_part_one(input: &str) -> Result<String> {
     let door_id = parse_input(input)?;
 
     Ok((0..u32::MAX)
-        .into_iter()
         .filter_map(|counter| {
             let mut hasher = Md5::default();
             hasher.update(door_id.as_bytes());
@@ -93,7 +92,7 @@ pub fn solve_part_two(input: &str) -> Result<String> {
     let door_id = parse_input(input)?;
     let mut password = [' '; 8];
 
-    let hashes = (0..u32::MAX).into_iter().filter_map(|counter| {
+    let hashes = (0..u32::MAX).filter_map(|counter| {
         let mut hasher = Md5::default();
         hasher.update(door_id.as_bytes());
         hasher.update(&counter.to_string());

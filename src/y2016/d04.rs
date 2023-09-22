@@ -82,7 +82,7 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
                 .chars()
                 .map(|c| match c {
                     c @ 'a'..='z' => {
-                        (((c as u32 - 97 + room.sector as u32) % 26) + 97) as u8 as char
+                        (((c as u32 - 97 + room.sector) % 26) + 97) as u8 as char
                     }
                     '-' | ' ' => ' ',
                     _ => unreachable!(),
@@ -101,7 +101,7 @@ fn parse_input(input: &str) -> Result<Vec<Room<'_>>> {
         .lines()
         .map(|room| {
             let (name, rest) = room.rsplit_once('-').context("no separator in the room")?;
-            ensure!(name.chars().all(|c| ('a'..='z').contains(&c) || c == '-'), "invalid name");
+            ensure!(name.chars().all(|c| c.is_ascii_lowercase() || c == '-'), "invalid name");
             ensure!(
                 rest.len() == 10
                     && rest.chars().nth(3) == Some('[')

@@ -139,7 +139,7 @@ fn parse_input(input: &str) -> Result<(usize, Vec<u8>)> {
         .lines()
         .flat_map(|line| {
             line.as_bytes().iter().map(|number| {
-                ensure!((b'0'..=b'9').contains(number), "invalid digit");
+                ensure!(number.is_ascii_digit(), "invalid digit");
                 Ok(*number - b'0')
             })
         })
