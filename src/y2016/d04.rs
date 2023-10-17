@@ -81,9 +81,7 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
                 .name
                 .chars()
                 .map(|c| match c {
-                    c @ 'a'..='z' => {
-                        (((c as u32 - 97 + room.sector) % 26) + 97) as u8 as char
-                    }
+                    c @ 'a'..='z' => (((c as u32 - 97 + room.sector) % 26) + 97) as u8 as char,
                     '-' | ' ' => ' ',
                     _ => unreachable!(),
                 })

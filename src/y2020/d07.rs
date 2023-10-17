@@ -95,7 +95,7 @@ pub fn solve_part_one(input: &str) -> Result<usize> {
 
     for (p, cs) in relations {
         for (_, c) in cs {
-            mapping.entry(c).or_insert_with(Vec::new).push(p);
+            mapping.entry(c).or_default().push(p);
         }
     }
 
