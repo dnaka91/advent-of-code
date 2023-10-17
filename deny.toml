@@ -1,6 +1,3 @@
-[advisories]
-ignore = ["RUSTSEC-2021-0145"]
-
 [licenses]
 allow-osi-fsf-free = "both"
 exceptions = [
