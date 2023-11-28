@@ -115,7 +115,7 @@ fn parse_input(input: &str) -> Result<(Vec<u8>, AHashMap<(u8, u8), u8>)> {
     let mut lines = input.lines();
 
     let template = lines.next().context("missing polymer template")?.as_bytes().to_owned();
-    ensure!(lines.next() == Some(""), "missing separater between polymer and pairs");
+    ensure!(lines.next() == Some(""), "missing separator between polymer and pairs");
 
     let pairs = lines
         .map(|insertion| {

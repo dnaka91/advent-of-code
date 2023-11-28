@@ -65,7 +65,7 @@ pub fn solve_part_two(input: &str) -> Result<u32> {
     Ok(boxes
         .iter()
         .map(|b| {
-            // By substracting the biggest value, we get the sum of the two smallest ones.
+            // By subtracting the biggest value, we get the sum of the two smallest ones.
             let biggest = b.0.max(b.1).max(b.2);
             2 * (b.0 + b.1 + b.2 - biggest) + b.0 * b.1 * b.2
         })
