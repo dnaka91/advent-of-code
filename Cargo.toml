@@ -24,6 +24,10 @@ indoc = "2.0.4"
 opt-level = 2
 
 [[bench]]
+name = "year2023"
+harness = false
+
+[[bench]]
 name = "year2022"
 harness = false
 
