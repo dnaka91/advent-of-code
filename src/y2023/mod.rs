@@ -1,9 +1,68 @@
 //! # Year 2023
 //!
 //! <style>
+//! .calendar {
+//!   cursor: default;
+//!   -webkit-user-select: none;
+//!   -khtml-user-select: none;
+//!   -moz-user-select: -moz-none;
+//!   -o-user-select: none;
+//!   user-select: none;
+//!   color: #666666;
+//!   background-color: #0f0f23;
+//! }
+//! .calendar > span {
+//!   color: #333333;
+//! }
+//! .calendar > a {
+//!   text-decoration: none !important;
+//!   color: #666666 !important;
+//!   outline: none;
+//!   cursor: default;
+//! }
+//! .calendar a:hover, .calendar a:focus {
+//!   background-color: #1e1e46;
+//!   background-color: rgba(119,119,165,.2);
+//!   cursor: pointer;
+//! }
+//! .calendar .calendar-day { color: #666666; }
+//! .calendar a .calendar-day { color: #cccccc; }
+//! .calendar a .calendar-mark-complete,
+//! .calendar a .calendar-mark-verycomplete { visibility: hidden; }
+//! .calendar a.calendar-complete     .calendar-mark-complete,
+//! .calendar a.calendar-verycomplete .calendar-mark-complete { visibility: visible; color: #ffff66; }
+//! .calendar a.calendar-verycomplete .calendar-mark-verycomplete { visibility: visible; color: #ffff66; }
+//!
+//! .calendar .calendar-color-n { color:#9b715b; }
+//! .calendar .calendar-color-y { color:#ffff66; text-shadow:0 0 5px #ffff66, 0 0 10px #ffff66; }
 //! </style>
 //!
 //! <pre class="calendar">
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="">                                                 </span>
+//! <span class="calendar-day2">    <span class="calendar-color-n">----@</span>             *                            <span class="calendar-day"> 2</span></span>
+//! <a href="d01/index.html" class="calendar-day1 calendar-verycomplete">  <span class="calendar-color-y">*</span> <span class="calendar-color-n">!</span> <span class="calendar-color-n">/^\</span>                                          <span class="calendar-day"> 1</span> <span class="calendar-mark-complete">*</span><span class="calendar-mark-verycomplete">*</span></a>
 //! </pre>
 
 #![allow(unused_variables)]

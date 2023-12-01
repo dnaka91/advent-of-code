@@ -35,8 +35,8 @@ where
     P1: Fn(&'a str) -> T1 + 'a,
     P2: Fn(&'a str) -> T2 + 'a,
 {
-    c.bench_function(&format!("Y2022 D{:02} P1", day), |b| b.iter(|| part1(black_box(input))));
-    c.bench_function(&format!("Y2022 D{:02} P2", day), |b| b.iter(|| part2(black_box(input))));
+    c.bench_function(&format!("Y2023 D{:02} P1", day), |b| b.iter(|| part1(black_box(input))));
+    c.bench_function(&format!("Y2023 D{:02} P2", day), |b| b.iter(|| part2(black_box(input))));
 }
 
 criterion_group!(benches, y2022);
