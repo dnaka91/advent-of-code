@@ -24,7 +24,7 @@ fn run_y2023() -> Result<()> {
     println!("Year 2023");
 
     run(1, d01::solve_part_one, d01::solve_part_two, d01::INPUT)?;
-    // run(2, d02::solve_part_one, d02::solve_part_two, d02::INPUT)?;
+    run(2, d02::solve_part_one, d02::solve_part_two, d02::INPUT)?;
     // run(3, d03::solve_part_one, d03::solve_part_two, d03::INPUT)?;
     // run(4, d04::solve_part_one, d04::solve_part_two, d04::INPUT)?;
     // run(5, d05::solve_part_one, d05::solve_part_two, d05::INPUT)?;
