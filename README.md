@@ -3,8 +3,8 @@
 [![Build Status][build-img]][build-url]
 [![Documentation][doc-img]][doc-url]
 
-[build-img]: https://img.shields.io/github/workflow/status/dnaka91/advent-of-code/CI/main?style=for-the-badge
-[build-url]: https://github.com/dnaka91/advent-of-code/actions?query=workflow%3ACI
+[build-img]: https://img.shields.io/github/actions/workflow/status/dnaka91/advent-of-code/ci.yml?branch=main&style=for-the-badge
+[build-url]: https://github.com/dnaka91/advent-of-code/actions/workflows/ci.yml
 [doc-img]: https://img.shields.io/badge/docs.rs-aoc-4d76ae?style=for-the-badge
 [doc-url]: https://dnaka91.github.io/advent-of-code/aoc/index.html
 
