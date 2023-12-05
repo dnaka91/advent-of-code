@@ -27,7 +27,7 @@ fn run_y2023() -> Result<()> {
     run(2, d02::solve_part_one, d02::solve_part_two, d02::INPUT)?;
     run(3, d03::solve_part_one, d03::solve_part_two, d03::INPUT)?;
     run(4, d04::solve_part_one, d04::solve_part_two, d04::INPUT)?;
-    // run(5, d05::solve_part_one, d05::solve_part_two, d05::INPUT)?;
+    run(5, d05::solve_part_one, d05::solve_part_two, d05::INPUT)?;
     // run(6, d06::solve_part_one, d06::solve_part_two, d06::INPUT)?;
     // run(7, d07::solve_part_one, d07::solve_part_two, d07::INPUT)?;
     // run(8, d08::solve_part_one, d08::solve_part_two, d08::INPUT)?;
