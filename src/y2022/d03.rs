@@ -171,11 +171,11 @@ mod tests {
 
     #[test]
     fn part_one() {
-        assert_eq!(157, solve_part_one(INPUT).unwrap())
+        assert_eq!(157, solve_part_one(INPUT).unwrap());
     }
 
     #[test]
     fn part_two() {
-        assert_eq!(70, solve_part_two(INPUT).unwrap())
+        assert_eq!(70, solve_part_two(INPUT).unwrap());
     }
 }

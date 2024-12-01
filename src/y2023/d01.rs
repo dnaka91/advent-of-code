@@ -152,11 +152,11 @@ mod tests {
 
     #[test]
     fn part_one() {
-        assert_eq!(142, solve_part_one(INPUT1).unwrap())
+        assert_eq!(142, solve_part_one(INPUT1).unwrap());
     }
 
     #[test]
     fn part_two() {
-        assert_eq!(281, solve_part_two(INPUT2).unwrap())
+        assert_eq!(281, solve_part_two(INPUT2).unwrap());
     }
 }
