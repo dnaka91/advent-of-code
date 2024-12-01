@@ -1,7 +1,7 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
-fn y2023(c: &mut Criterion) {
-    use aoc::y2023::*;
+fn y2024(c: &mut Criterion) {
+    use aoc::y2024::*;
 
     run(c, 1, d01::solve_part_one, d01::solve_part_two, d01::INPUT);
     run(c, 2, d02::solve_part_one, d02::solve_part_two, d02::INPUT);
@@ -35,9 +35,9 @@ where
     P1: Fn(&'a str) -> T1 + 'a,
     P2: Fn(&'a str) -> T2 + 'a,
 {
-    c.bench_function(&format!("Y2023 D{:02} P1", day), |b| b.iter(|| part1(black_box(input))));
-    c.bench_function(&format!("Y2023 D{:02} P2", day), |b| b.iter(|| part2(black_box(input))));
+    c.bench_function(&format!("Y2024 D{:02} P1", day), |b| b.iter(|| part1(black_box(input))));
+    c.bench_function(&format!("Y2024 D{:02} P2", day), |b| b.iter(|| part2(black_box(input))));
 }
 
-criterion_group!(benches, y2023);
+criterion_group!(benches, y2024);
 criterion_main!(benches);
