@@ -6,19 +6,19 @@ edition = "2021"
 license = "AGPL-3.0-only"
 
 [dependencies]
-ahash = "0.8.6"
-anyhow = "1.0.76"
+ahash = "0.8.11"
+anyhow = "1.0.93"
 hex = "0.4.3"
-itertools = "0.12.0"
+itertools = "0.13.0"
 maplit = "1.0.2"
 md-5 = "0.10.6"
-num-integer = "0.1.45"
-rayon = "1.8.0"
-thiserror = "1.0.52"
+num-integer = "0.1.46"
+rayon = "1.10.0"
+thiserror = "2.0.3"
 
 [dev-dependencies]
 criterion = "0.5.1"
-indoc = "2.0.4"
+indoc = "2.0.5"
 
 [profile.test]
 opt-level = 2

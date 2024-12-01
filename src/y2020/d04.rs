@@ -211,7 +211,7 @@ fn parse_input(input: &str) -> Result<Vec<HashMap<&str, &str>>> {
     input
         .split_terminator("\n\n")
         .map(|pp| {
-            pp.split_terminator(|c| c == ' ' || c == '\n')
+            pp.split_terminator([' ', '\n'])
                 .map(|e| {
                     let mut parts = e.splitn(2, ':');
                     let k = parts.next().context("key missing")?;

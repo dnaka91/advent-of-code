@@ -98,7 +98,7 @@ pub fn solve_part_one(input: &str) -> Result<u16> {
     let input = input.lines().next().unwrap();
     let mut pos = 0;
     let mut min_layer = "";
-    let mut min_count = usize::max_value();
+    let mut min_count = usize::MAX;
 
     while pos < input.len() {
         let layer = &input[pos..pos + LAYER_SIZE];

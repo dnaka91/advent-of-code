@@ -33,7 +33,7 @@ pub const INPUT: &str = include_str!("d04.txt");
 pub fn solve_part_one(input: &str) -> Result<u64> {
     let key = parse_input(input);
 
-    for i in 1..u64::max_value() {
+    for i in 1..u64::MAX {
         let hash = Md5::digest(format!("{}{}", key, i).as_bytes());
 
         if hex::encode(hash).starts_with("00000") {
@@ -47,7 +47,7 @@ pub fn solve_part_one(input: &str) -> Result<u64> {
 pub fn solve_part_two(input: &str) -> Result<u64> {
     let key = parse_input(input);
 
-    for i in 1..u64::max_value() {
+    for i in 1..u64::MAX {
         let hash = Md5::digest(format!("{}{}", key, i).as_bytes());
 
         if hex::encode(hash).starts_with("000000") {

@@ -216,7 +216,7 @@ fn parse_input(input: &str) -> Result<(Vec<Stack>, impl Iterator<Item = Result<S
 
 struct CrateIterator<'a>(&'a str);
 
-impl<'a> Iterator for CrateIterator<'a> {
+impl Iterator for CrateIterator<'_> {
     type Item = char;
 
     fn next(&mut self) -> Option<Self::Item> {

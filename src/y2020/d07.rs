@@ -149,7 +149,7 @@ fn parse_input(input: &str) -> Result<HashMap<&str, Vec<(u32, &str)>>> {
             }
 
             let children = children
-                .trim_end_matches(|c| c == ' ' || c == '.')
+                .trim_end_matches([' ', '.'])
                 .split(", ")
                 .map(|c| {
                     let mut parts = c

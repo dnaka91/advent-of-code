@@ -74,7 +74,7 @@ pub fn solve_part_one(input: &str) -> Result<String> {
         .filter_map(|counter| {
             let mut hasher = Md5::default();
             hasher.update(door_id.as_bytes());
-            hasher.update(&counter.to_string());
+            hasher.update(counter.to_string());
 
             hasher
                 .finalize()
@@ -95,7 +95,7 @@ pub fn solve_part_two(input: &str) -> Result<String> {
     let hashes = (0..u32::MAX).filter_map(|counter| {
         let mut hasher = Md5::default();
         hasher.update(door_id.as_bytes());
-        hasher.update(&counter.to_string());
+        hasher.update(counter.to_string());
 
         hasher
             .finalize()

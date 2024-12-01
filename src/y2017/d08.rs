@@ -113,7 +113,7 @@ struct Condition<'a> {
     value: i32,
 }
 
-impl<'a> Condition<'a> {
+impl Condition<'_> {
     fn cmp(&self, reg: i32) -> bool {
         match self.operator {
             Op::GreaterThan => reg > self.value,
